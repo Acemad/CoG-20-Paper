@@ -11,6 +11,7 @@
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
     
+% A shortcut for µRTS
 \newcommand{\mRTS}{$\mu$RTS}
 
 \begin{document}
@@ -55,25 +56,41 @@ The rest of this paper is organized as follows : Section II reviews some backgro
 
 A sub-genre of strategy video games, real-time strategy games simulate a warfare situation, where each side of the game is given control over a military base, and is tasked with collecting resources and recruiting troops. To emerge victorious, the player has to completely annihilation the opponent's forces. RTS games progress in real-time, which signifies that players can act simultaneously, and that the effect of executing an action is not necessarily immediate. Usually, an RTS is played from a top-down perspective, over a large grid-based map, covered by a fog-of-war layer reducing observability, thus, making the game even more difficult. Furthermore, the execution of a player-action can be influenced by some stochastic parameters, introducing non-determinism to the mix. Players control their units by issuing unit-actions to each, and a player-action is a combination of unit-actions issued simultaneously in a given game cycle.
 
-A typical RTS game can be defined as a zero-sum, multi-player, non-deterministic game with incomplete information. The size of an RTS state space and branching factor, as estimated in a typical \textsc{StarCraft} setting \cite{ontanon_survey_2013}, reaches $10^{1685}$ possible states and $10^{50}$ possible actions in a decision point, respectively. In contrast, Chess and Go possess a state space estimate of $10^{47}$, and $10^{171}$ respectively, with a branching factor equalling $36$ in Chess, and $180$ in Go. These estimates are a clear indicator of the difficulty faced by a game-playing AI in the RTS domain.
+A typical RTS game can is defined as a zero-sum, multi-player, non-deterministic game with incomplete information. The size of an RTS state space and branching factor, as estimated in a typical \textsc{StarCraft} setting \cite{ontanon_survey_2013}, reaches $10^{1685}$ possible states and $10^{50}$ possible actions in a decision point, respectively. In contrast, Chess and Go possess a state space estimate of $10^{47}$, and $10^{171}$ respectively, with a branching factor equalling $36$ in Chess, and $180$ in Go. These estimates are a clear indicator of the difficulty faced by a game-playing AI in the RTS domain.
 
 Based on the terminology and definitions presented in \cite{ontanon_combinatorial_2017}, an RTS game can be defined formally as a tuple $G$, where $G = (S, A, P, \tau, L, W, s_{init})$ and each component defined as follows:
 
 \begin{itemize}
-\item $S$ : the game state space (all the possible configurations)
-\item $A$ : the player-action space, where a player-action is a combination of unit-actions.
-\item $P$ : the player set, where $P=\{max,min\}$ for a 2-player setting.
-\item $\tau : S \times A \times A \rightarrow S$ : the state transition function that takes a game state in time $t$ and player-actions of both players, and returns a new game state in $t+1$.
+\item $S$ : the set of all possible states (state space).
+\item $A$ : the set of player-actions (decision space).
+\item $P$ : the players set, where $P=\{max,min\}$ for a 2-player setting.
+\item $\tau : S \times A \times A \rightarrow S$ : the state transition function, taking a game state in time $t$ and the player-actions of both players, and returns a new game state in $t+1$.
 \item $L: S \times A \times P \rightarrow \{true,false\}$ : determines the legality of a player-action in a state for a specific player.
-\item $W: S \rightarrow P \cup \{ongoing,draw\}$ determines the winner of the game (if any) or if the game is a draw or is still ongoing.
+\item $W: S \rightarrow P \cup \{ongoing,draw\}$ : determines the winner of the game (if any) or if the game is a draw or is still ongoing.
 \item $s_{init} \in S$ : the initial state.
 \end{itemize}
 
 \subsection{\mRTS{}}
 
+Conducting AI research on commercial RTS games was not a smooth experience, as most games did not offer a suitable API for AI research. To mitigate this shortcoming, several independent solutions were developed, such as the unofficial \textsc{StarCraft} interface, BWAPI, the \textsc{WarCraft} port, Wargus and ORTS. Much later, an official API for \textsc{StarCraft II} was made available, in a collaborative effort between Blizzard and DeepMind \cite{vinyals_starcraft_2017-1}. Moreover, several platforms have emerged such as \mRTS{} \cite{ontanon_combinatorial_2013}, ELF \cite{tian_elf_2017} and DeepRTS \cite{andersen_deep_2018}.
+
+In this paper, we use \mRTS{} as our experimentation test-bed. \mRTS{} is a stripped down RTS game simulator specifically designed for AI research, it features all the challenging apects of an RTS, without frills. Most importantly, it includes an efficient forward-model, necessary for implementing simulation-based search approaches. A screenshot of a \mRTS{} match is shown in Figure \ref{mRTSScreenshot}. A player may control 2 types of buildings (Base and Barracks) and 4 types of mobile units (Worker, Light, Ranged, Heavy). The Base is responsible for producing Workers, and the Barracks produces assault units, of course, in exchange with an amount resources. Resources are accumulated in the base by Workers, which harvest them from resource deposits. A map consists of an arbitrary-sized 2D grid, where each square is either free, or occupied by a unit, or a structure.
+
+\begin{figure}[t]
+\begin{center}
+	\includegraphics[scale=1]{figs/mRTS.png}
+	\caption{A \mRTS{} match. Each player's units can be differentiated by the color of their outline. Blue is for Player 1, and red is for Player 2. }
+	\label{mRTSScreenshot}
+\end{center}
+\end{figure}
+
+\mRTS{} represents an interesting research domain for online planning techniques, especially those requiring a forward-model. Several interesting low-level, high-level and hybrid planning approaches were proposed in \mRTS{} as detailed in \cite{ouessai_online_2019}.
+
 \subsection{Monte Carlo Tree Search}
 
 The goal of an RTS game-playing agent is to compute an optimal player-action $a \in A$, for each decision cycle $t$, where the agent is able to act. The successive, computed player-actions constitute a plan that should lead the agent to victory. Essentially, this translates to a Markov decision process (MDP).
+
+% Writing ...
 
 \section{Related Works}
 
@@ -85,11 +102,49 @@ The goal of an RTS game-playing agent is to compute an optimal player-action $a 
 
 \section{Experimentation Results}
 
+\subsection{Parameter Tuning}
+
+% WIP
+
+\begin{figure}[!h]
+\begin{center}
+	\includegraphics[scale=0.7]{figs/PT-UCT-RIP-F.png}
+	\caption{UCT-RIP-F performance against UCT}
+	\label{PT-UCT-RIP-F}
+\end{center}
+\end{figure}
+
+\begin{figure}[!h]
+\begin{center}
+	\includegraphics[scale=0.7]{figs/WLDRate-UCT-RIP-F.png}
+	\caption{Win/Loss/Draw rates of the optimal RIP-F parameter, against UCT }
+	\label{PT-UCT-RIP-F}
+\end{center}
+\end{figure}
+
+\begin{figure}[!h]
+\begin{center}
+	\includegraphics[scale=0.7]{figs/PT-UCT-RIP-P.png}
+	\caption{UCT-RIP-P performance against UCT}
+	\label{PT-UCT-RIP-P}
+\end{center}
+\end{figure}
+
+\begin{figure}[!h]
+\begin{center}
+	\includegraphics[scale=0.7]{figs/WLDRate-UCT-RIP-P.png}
+	\caption{Win/Loss/Draw rates of the optimal RIP-P parameter, against UCT }
+	\label{PT-UCT-RIP-F}
+\end{center}
+\end{figure}
+
+\subsection{Best Pruning Approach}
+
+\subsection{Tournament}
+
 \section{Conclusion}
 
 \bibliographystyle{IEEEtranS}
 \bibliography{library}
-
-
 
 \end{document}
