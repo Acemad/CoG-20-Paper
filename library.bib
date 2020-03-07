@@ -709,6 +709,29 @@
   lccn = {QA76.76.C672 B85 2005}
 }
 
+@inproceedings{burch_automatic_2011,
+  title = {Automatic {{Move Pruning}} in {{General Single}}-{{Player Games}}},
+  booktitle = {Fourth {{Annual Symposium}} on {{Combinatorial Search}}},
+  author = {Burch, Neil and Holte, Robert C.},
+  year = {2011},
+  month = jul,
+  abstract = {Move pruning is a low-overhead technique for reducing the size of a depth first search tree. The existing algorithm for automatically discovering move pruning information is restricted to games where all moves can be applied to every state. This paper demonstrates an algorithm which handles a general class of single player games. It gives experimental results for our technique, demonstrating both the applicability to a range of games, and the reduction in search tree size. We also provide some conditions under which move pruning is safe, and when it may interfere with other search reduction techniques.},
+  copyright = {Authors who publish a paper in this conference agree to the following terms:     Author(s) agree to transfer their copyrights in their article/paper to the Association for the Advancement of Artificial Intelligence (AAAI), in order to deal with future requests for reprints, translations, anthologies, reproductions, excerpts, and other publications. This grant will include, without limitation, the entire copyright in the article/paper in all countries of the world, including all renewals, extensions, and reversions thereof, whether such rights current exist or hereafter come into effect, and also the exclusive right to create electronic versions of the article/paper, to the extent that such right is not subsumed under copyright.   The author(s) warrants that they are the sole author and owner of the copyright in the above article/paper, except for those portions shown to be in quotations; that the article/paper is original throughout; and that the undersigned right to make the grants set forth above is complete and unencumbered   The author(s) agree that if anyone brings any claim or action alleging facts that, if true, constitute a breach of any of the foregoing warranties, the author(s) will hold harmless and indemnify AAAI, their grantees, their licensees, and their distributors against any liability, whether under judgment, decree, or compromise, and any legal fees and expenses arising out of that claim or actions, and the undersigned will cooperate fully in any defense AAAI may make to such claim or action. Moreover, the undersigned agrees to cooperate in any claim or other action seeking to protect or enforce any right the undersigned has granted to AAAI in the article/paper. If any such claim or action fails because of facts that constitute a breach of any of the foregoing warranties, the undersigned agrees to reimburse whomever brings such claim or action for expenses and attorneys\&rsquo; fees incurred therein.   Author(s) retain all proprietary rights other than copyright (such as patent rights).   Author(s) may make personal reuse of all or portions of the above article/paper in other works of their own authorship.   Author(s) may reproduce, or have reproduced, their article/paper for the author\&rsquo;s personal use, or for company use provided that AAAI copyright and the source are indicated, and that the copies are not used in a way that implies AAAI endorsement of a product or service of an employer, and that the copies per se are not offered for sale. The foregoing right shall not permit the posting of the article/paper in electronic or digital form on any computer network, except by the author or the author\&rsquo;s employer, and then only on the author\&rsquo;s or the employer\&rsquo;s own web page or ftp site. Such web page or ftp site, in addition to the aforementioned requirements of this Paragraph, must provide an electronic reference or link back to the AAAI electronic server, and shall not post other AAAI copyrighted materials not of the author\&rsquo;s or the employer\&rsquo;s creation (including tables of contents with links to other papers) without AAAI\&rsquo;s written permission.   Author(s) may make limited distribution of all or portions of their article/paper prior to publication.   In the case of work performed under U.S. Government contract, AAAI grants the U.S. Government royalty-free permission to reproduce all or portions of the above article/paper, and to authorize others to do so, for U.S. Government purposes.   In the event the above article/paper is not accepted and published by AAAI, or is withdrawn by the author(s) before acceptance by AAAI, this agreement becomes null and void.},
+  file = {C\:\\Users\\aesou\\Zotero\\storage\\W3EP3HZB\\Burch and Holte - 2011 - Automatic Move Pruning in General Single-Player Ga.pdf;C\:\\Users\\aesou\\Zotero\\storage\\PF9W5U6R\\4012.html},
+  language = {en}
+}
+
+@inproceedings{burch_automatic_2012,
+  title = {Automatic {{Move Pruning Revisited}}},
+  booktitle = {Fifth {{Annual Symposium}} on {{Combinatorial Search}}},
+  author = {Burch, Neil and Holte, Robert C.},
+  year = {2012},
+  publisher = {{AAAI Press}},
+  address = {{Niagara Falls, Canada}},
+  abstract = {In this paper we show that the move pruning method we presented at SoCS last year sometimes prunes all the least-cost paths from one state to another. We present two examples exhibiting this erroneous behaviour\textendash{}a simple, artificial example and a slightly more complex example that arose in last year's experiments. We then formally prove that a simple modification to our move pruning method makes it ``safe'', i.e., it will never prune all the least-cost paths between a pair of states. Finally, we present the results of rerunning last year's experiments with this provably safe version of move pruning and show that last year's main conclusions still hold, namely: (1) in domains where there are short redundant sequences move pruning produces substantial speedups in depth-first search, and (2) in domains where the only short redundant sequences are 2-cycles, move pruning is faster than parent pruning by a factor of two or more.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Burch and Holte - 2012 - Automatic Move Pruning Revisited.pdf;C\:\\Users\\aesou\\Zotero\\storage\\U8C8S8RE\\Burch and Holte - Automatic Move Pruning Revisited.pdf;C\:\\Users\\aesou\\Zotero\\storage\\HJIP7BJD\\summary.html}
+}
+
 @inproceedings{buro_call_2004,
   title = {Call for {{AI}} Research in {{RTS}} Games},
   booktitle = {Proceedings of the {{AAAI Workshop}} on {{AI}} in {{Games}}},
@@ -778,6 +801,15 @@
   keywords = {Case-based reasoning,fuzzy sets,real-time strategy,tactical management},
   language = {en},
   series = {Lecture {{Notes}} in {{Computer Science}}}
+}
+
+@techreport{cao_enhanced_2019,
+  title = {Enhanced {{Forward Pruning}}},
+  author = {Cao, Qingyang},
+  year = {2019},
+  month = aug,
+  address = {{Heidelberg University}},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Cao - 2019 - Enhanced Forward Pruning.pdf}
 }
 
 @incollection{cardon_markovian_2011,
@@ -1426,22 +1458,6 @@ Fourth, UAlbertaBot: our starcraft AI bot which won the 2013 AIIDE starcraft AI 
   language = {en}
 }
 
-@article{david-tabibi_verified_2008,
-  title = {Verified {{Null}}-{{Move Pruning}}},
-  author = {{David-Tabibi}, Omid and Netanyahu, Nathan S.},
-  year = {2008},
-  month = aug,
-  abstract = {In this article we review standard null-move pruning and introduce our extended version of it, which we call verified null-move pruning. In verified null-move pruning, whenever the shallow null-move search indicates a fail-high, instead of cutting off the search from the current node, the search is continued with reduced depth.},
-  archivePrefix = {arXiv},
-  eprint = {0808.1125},
-  eprinttype = {arxiv},
-  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\David-Tabibi and Netanyahu - 2008 - Verified Null-Move Pruning.pdf},
-  journal = {arXiv:0808.1125 [cs]},
-  keywords = {Computer Science - Artificial Intelligence,I.2.8},
-  language = {en},
-  primaryClass = {cs}
-}
-
 @article{daylamani-zad_chain_2018,
   title = {Chain of Command in Autonomous Cooperative Agents for Battles in Real-Time Strategy Games},
   author = {{Daylamani-Zad}, Damon and Graham, Letitia B. and Paraskevopoulos, Ioannis Th.},
@@ -1498,6 +1514,23 @@ Fourth, UAlbertaBot: our starcraft AI bot which won the 2013 AIIDE starcraft AI 
   keywords = {Computer Science - Human-Computer Interaction},
   language = {en},
   primaryClass = {cs}
+}
+
+@article{donninger_null_1993,
+  title = {Null {{Move}} and {{Deep Search}}},
+  author = {Donninger, Christian},
+  year = {1993},
+  month = jan,
+  volume = {16},
+  pages = {137--143},
+  publisher = {{IOS Press}},
+  issn = {1389-6911},
+  doi = {10.3233/ICG-1993-16304},
+  abstract = {This article describes in detail a selective-search heuristic which uses a null-move approach recursively. A variety of empirical data, ranging from tournament results against strong human players to special test positions, are presented. These resul},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Donninger - 1993 - Null Move and Deep Search.pdf;C\:\\Users\\aesou\\Zotero\\storage\\QWFWIGHQ\\icg16-3-04.html},
+  journal = {ICGA Journal},
+  language = {en},
+  number = {3}
 }
 
 @article{dor_heuristic_2014,
@@ -2164,6 +2197,20 @@ Fourth, UAlbertaBot: our starcraft AI bot which won the 2013 AIIDE starcraft AI 
   language = {en}
 }
 
+@article{greer_tree_2013,
+  title = {Tree {{Pruning}} for {{New Search Techniques}} in {{Computer Games}}},
+  author = {Greer, Kieran},
+  year = {2013},
+  volume = {2013},
+  publisher = {{Hindawi}},
+  issn = {1687-7470},
+  doi = {https://doi.org/10.1155/2013/357068},
+  abstract = {This paper proposes a new mechanism for pruning a search game tree in computer chess. The algorithm stores and then reuses chains or sequences of moves, built up from previous searches. These move sequences have a built-in forward-pruning mechanism that can radically reduce the search space. A typical search process might retrieve a move from a Transposition Table, where the decision of what move to retrieve would be based on the position itself. This algorithm stores move sequences based on what previous sequences were better, or caused cutoffs. The sequence is then returned based on the current move only. This is therefore position independent and could also be useful in games with imperfect information or uncertainty, where the whole situation is not known at any one time. Over a small set of tests, the algorithm was shown to clearly out perform Transposition Tables, both in terms of search reduction and game-play results. Finally, a completely new search process will be suggested for computer chess or games in general.},
+  file = {C\:\\Users\\aesou\\Zotero\\storage\\QGY6FMGG\\Greer - 2013 - Tree Pruning for New Search Techniques in Computer.pdf;C\:\\Users\\aesou\\Zotero\\storage\\TIHPEYKF\\357068.html},
+  journal = {Advances in Artificial Intelligence},
+  language = {en}
+}
+
 @incollection{grimbergen_cognitive_2008,
   title = {Cognitive {{Modeling}} of {{Knowledge}}-{{Guided Information Acquisition}} in {{Games}}},
   booktitle = {Computers and {{Games}}},
@@ -2335,6 +2382,23 @@ Fourth, UAlbertaBot: our starcraft AI bot which won the 2013 AIIDE starcraft AI 
   number = {3}
 }
 
+@article{heinz_extended_1998,
+  title = {Extended {{Futility Pruning}}},
+  author = {Heinz, E. A.},
+  year = {1998},
+  month = jan,
+  volume = {21},
+  pages = {75--83},
+  publisher = {{IOS Press}},
+  issn = {1389-6911},
+  doi = {10.3233/ICG-1998-21202},
+  abstract = {This article presents a new selective pruning technique for alpha-beta based game-tree search in computer chess, called extended futility pruning . It builds on ideas of both razoring and normal futility pruning at frontier nodes (depth = 1), and it},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Heinz - 1998 - Extended Futility Pruning.pdf;C\:\\Users\\aesou\\Zotero\\storage\\JVEQSET3\\icg21202.html},
+  journal = {ICGA Journal},
+  language = {en},
+  number = {2}
+}
+
 @book{heinz_scalable_2000,
   title = {Scalable {{Search}} in {{Computer Chess}}},
   author = {Heinz, Ernst A.},
@@ -2426,6 +2490,36 @@ Fourth, UAlbertaBot: our starcraft AI bot which won the 2013 AIIDE starcraft AI 
   language = {English}
 }
 
+@article{hoki_efficiency_2012,
+  title = {Efficiency of Three Forward-Pruning Techniques in Shogi: {{Futility}} Pruning, Null-Move Pruning, and {{Late Move Reduction}} ({{LMR}})},
+  shorttitle = {Efficiency of Three Forward-Pruning Techniques in Shogi},
+  author = {Hoki, Kunihito and Muramatsu, Masakazu},
+  year = {2012},
+  month = aug,
+  volume = {3},
+  pages = {51--57},
+  issn = {1875-9521},
+  doi = {10.1016/j.entcom.2011.11.003},
+  abstract = {The efficiency of three forward-pruning techniques, i.e., futility pruning, null-move pruning, and LMR, is analyzed in shogi, a Japanese chess variant. It is shown that the techniques with the {$\alpha$}\textendash{$\beta$} pruning reduce the effective branching factor of shogi endgames to 2.8 without sacrificing much accuracy of the search results. Because the average number of the raw branching factor in shogi is around 80, the pruning techniques reduce the search space more effectively than in chess.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Hoki and Muramatsu - 2012 - Efficiency of three forward-pruning techniques in .pdf;C\:\\Users\\aesou\\Zotero\\storage\\YQX9GI98\\S1875952111000450.html},
+  journal = {Entertainment Computing},
+  keywords = {Branching factor,Brute-force search,Chess,Forward pruning,Shogi},
+  language = {en},
+  number = {3},
+  series = {Games and {{AI}}}
+}
+
+@inproceedings{holldobler_lessons_2017,
+  title = {Lessons {{Learned}} from {{AlphaGo}}},
+  booktitle = {{{YSIP}} 2017},
+  author = {H{\"o}lldobler, Steffen and M{\"o}hle, Sibylle and Tigunova, Anna},
+  year = {2017},
+  pages = {92--101},
+  abstract = {The game of Go is known to be one of the most complicated board games. Competing in Go against a professional human player has been a long-standing challenge for AI. In this paper we shed light on the AlphaGo program that could beat a Go world champion, which was previously considered non-achievable for the state of the art AI.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Hölldobler et al. - 2017 - Lessons Learned from AlphaGo.pdf},
+  language = {en}
+}
+
 @inproceedings{holler_htn_2018,
   title = {{{HTN Plan Repair Using Unmodified Planning Systems}}},
   booktitle = {Proceedings of the 28th {{International Conference}} on {{Automated Planning}} and {{Scheduling}}. {{Workshop}} on {{Hierarchical Planning}}},
@@ -2451,6 +2545,23 @@ Fourth, UAlbertaBot: our starcraft AI bot which won the 2013 AIIDE starcraft AI 
   file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Holler et al. - 2018 - Plan and Goal Recognition as HTN Planning.pdf},
   isbn = {978-1-5386-7449-9},
   language = {en}
+}
+
+@inproceedings{holte_move_2013,
+  title = {Move {{Pruning}} and {{Duplicate Detection}}},
+  booktitle = {Advances in {{Artificial Intelligence}}},
+  author = {Holte, Robert C.},
+  editor = {Za{\"i}ane, Osmar R. and Zilles, Sandra},
+  year = {2013},
+  pages = {40--51},
+  publisher = {{Springer}},
+  address = {{Berlin, Heidelberg}},
+  doi = {10.1007/978-3-642-38457-8_4},
+  abstract = {This paper begins by showing that Burch and Holte's move pruning method is, in general, not safe to use in conjunction with the kind of duplicate detection done by standard heuristic search algorithms such as A*. It then investigates the interactions between move pruning and duplicate detection with the aim of elucidating conditions under which it is safe to use both techniques together. Conditions are derived under which simple interactions cannot possibly occur and it is shown that these conditions hold in many of the state spaces commonly used as research testbeds. Unfortunately, these conditions do not preclude more complex interactions from occurring. The paper then proves two conditions that must hold whenever move pruning is not safe to use with duplicate detection and discusses circumstances in which each of these conditions might not hold, i.e. circumstances in which it would be safe to use move pruning in conjunction with duplicate detection.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Holte - 2013 - Move Pruning and Duplicate Detection.pdf;C\:\\Users\\aesou\\Zotero\\storage\\8WCZAFRV\\Holte - 2013 - Move Pruning and Duplicate Detection.pdf},
+  isbn = {978-3-642-38457-8},
+  language = {en},
+  series = {Lecture {{Notes}} in {{Computer Science}}}
 }
 
 @book{hornby_oxford_2015,
@@ -2777,7 +2888,7 @@ Fourth, UAlbertaBot: our starcraft AI bot which won the 2013 AIIDE starcraft AI 
   issn = {2325-4270},
   doi = {10.1109/CIG.2019.8847963},
   abstract = {From an early point, games have been promoted as important challenges within the research field of Artificial Intelligence (AI). Recent developments in machine learning have allowed a few AI systems to win against top professionals in even the most challenging video games, including Dota 2 and StarCraft. It thus may seem that AI has now achieved all of the long-standing goals that were set forth by the research community. In this paper, we introduce a black box approach that provides a pragmatic way of evaluating the fairness of AI vs. human competitions, by only considering motoric and perceptual fairness on the competitors' side. Additionally, we introduce the notion of extrinsic and intrinsic factors of a game competition and apply these to discuss and compare the competitions in relation to human vs. human competitions. We conclude that Dota 2 and StarCraft II are not yet mastered by AI as they so far only have been able to win against top professionals in limited competition structures in restricted variants of the games.},
-  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\justesen2019.pdf;C\:\\Users\\aesou\\Zotero\\storage\\FW6S9RU5\\8847963.html},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Justesen et al. - 2019 - When Are We Done with Games.pdf;C\:\\Users\\aesou\\Zotero\\storage\\FW6S9RU5\\8847963.html},
   keywords = {AI systems,artificial intelligence,black box approach,competition structures,computer games,Computers,Dota 2,extrinsic factors,game competition,Games,human competitions,intrinsic factors,learning (artificial intelligence),machine learning,Machine learning,Pragmatics,StarCraft II,Task analysis,Training,video games}
 }
 
@@ -3048,6 +3159,20 @@ human player, as well as results from previous research. The results are fairly 
   series = {Lecture {{Notes}} in {{Computer Science}}}
 }
 
+@inproceedings{kowalczuk_jamesbot_2019,
+  title = {{{JamesBot}} - an Intelligent Agent Playing {{StarCraft II}}},
+  booktitle = {2019 24th {{International Conference}} on {{Methods}} and {{Models}} in {{Automation}} and {{Robotics}} ({{MMAR}})},
+  author = {Kowalczuk, Zdzis{\l}aw and Cybulski, Jan and Czubenko, Micha{\l}},
+  year = {2019},
+  month = aug,
+  pages = {105--110},
+  issn = {null},
+  doi = {10.1109/MMAR.2019.8864611},
+  abstract = {The most popular method for optimizing a certain strategy based on a reward is Reinforcement Learning (RL). Lately, a big challenge for this technique are computer games such as StarCraft II which is a real-time strategy game, created by Blizzard. The main idea of this game is to fight between agents and control objects on the battlefield in order to defeat the enemy. This work concerns creating an autonomous bot using reinforced learning, in particular, the Q-Learning algorithm for playing StarCraft. JamesBot consists of three parts. State Manager processes relevant information from the environment. Decision Manager consists of a table implementation of the Q-Learning algorithm, which assigns actions to states, and the epsilon-greedy strategy, which determines the behavior of the bot. In turn, Action Manager is responsible for executing commands. Testing bots involves fighting the default (simple) agent built into the game. Although JamesBot played better than the default (random) agent, it failed to gain the ability to defeat the opponent. The obtained results, however, are quite promising in terms of the possibilities of further development.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Kowalczuk et al. - 2019 - JamesBot - an intelligent agent playing StarCraft .pdf},
+  keywords = {Action Manager,autonomous bot,Buildings,computer games,Decision Manager,epsilon-greedy strategy,Games,Informatics,intelligent agent,Intelligent agents,JamesBot,learning (artificial intelligence),machine learning,multi-agent systems,Q-Learning,Q-Learning algorithm,real-time strategy game,Real-time systems,reinforced learning,reinforcement learning,Reinforcement learning,RL,StarCraft II,State Manager,Telecommunications}
+}
+
 @article{kowalczyk_real-time_2018,
   title = {Real-Time Strategy Video Game Experience and Structural Connectivity - {{A}} Diffusion Tensor Imaging Study},
   author = {Kowalczyk, Natalia and Shi, Feng and Magnuski, Mikolaj and Skorko, Maciek and Dobrowolski, Pawel and Kossowski, Bartosz and Marchewka, Artur and Bielecki, Maksymilian and Kossut, Malgorzata and Brzezicka, Aneta},
@@ -3275,6 +3400,20 @@ human player, as well as results from previous research. The results are fairly 
   language = {en}
 }
 
+@inproceedings{leme_solving_2015,
+  title = {Solving {{Sokoban Optimally}} with {{Domain}}-{{Dependent Move Pruning}}},
+  booktitle = {2015 {{Brazilian Conference}} on {{Intelligent Systems}} ({{BRACIS}})},
+  author = {Leme, Renato R. and Pereira, Andr{\'e} G. and Ritt, Marcus and Buriol, Luciana S.},
+  year = {2015},
+  month = nov,
+  pages = {264--269},
+  issn = {null},
+  doi = {10.1109/BRACIS.2015.47},
+  abstract = {Move pruning increases the efficiency of heuristic search techniques by not expanding parts of the state space. In this article, we propose an admissible domain-dependent move pruning (DDMP) technique for Sokoban. When exploring a node DDMP analyzes and selects a subset of successor nodes required to be generated to preserve all optimal solutions. DDMP has low space and time overhead. It reduces the number of successor nodes that need to be generated and thus the branching factor. Reducing the number of successor nodes is especially important for Sokoban due to the highly costly heuristic functions and deadlock detection techniques. In addition, the subset of selected successor nodes is, in general, the "worst successor nodes available" which increases the chance of deadlocks early detecting. We define DDMP formally and prove its admissibility. When applied to the standard set of instances DDMP reduces the branching factor, detects more deadlocks, and decreases the effort to solve instances in the number of explored nodes and total time. DDMP has a positive synergy with recent deadlock detection techniques. Combined they increase the number of optimally solved instances compared to previous methods.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Leme et al. - 2015 - Solving Sokoban Optimally with Domain-Dependent Mo.pdf;C\:\\Users\\aesou\\Zotero\\storage\\VR5EASJ2\\7424030.html},
+  keywords = {A*,branching factor,computational complexity,Computers,Databases,DDMP technique,deadlock detection technique,Detectors,domain-dependent move pruning technique,graph theory,Heuristic algorithms,heuristic function,Heuristic search,move pruning,Move pruning,Pattern databases,Search problems,Single-agent search,Sokoban,Standards,state-space methods,System recovery}
+}
+
 @article{li_deep_2017,
   title = {Deep {{Reinforcement Learning}}: {{An Overview}}},
   shorttitle = {Deep {{Reinforcement Learning}}},
@@ -3347,6 +3486,21 @@ human player, as well as results from previous research. The results are fairly 
   keywords = {Behaviour Tree,Finite State Machine,Game Developer,Genetic Programming,Human Player},
   language = {en},
   series = {Lecture {{Notes}} in {{Computer Science}}}
+}
+
+@inproceedings{lim_properties_2006,
+  title = {Properties of Forward Pruning in Game-Tree Search},
+  booktitle = {Proceedings of the 21st National Conference on {{Artificial}} Intelligence - {{Volume}} 2},
+  author = {Lim, Yew Jin and Lee, Wee Sun},
+  year = {2006},
+  month = jul,
+  pages = {1020--1025},
+  publisher = {{AAAI Press}},
+  address = {{Boston, Massachusetts}},
+  abstract = {Forward pruning, or selectively searching a subset of moves, is now commonly used in game-playing programs to reduce the number of nodes searched with manageable risk. Forward pruning techniques should consider how pruning errors in a game-tree search propagate to the root to minimize the risk of making errors. In this paper, we explore forward pruning using theoretical analyses and Monte Carlo simulations and report on two findings. Firstly, we find that pruning errors propagate differently depending on the player to move, and show that pruning errors on the opponent's moves are potentially more serious than pruning errors on the player's own moves. This suggests that pruning on the player's own move can be performed more aggressively compared to pruning on the opponent's move. Secondly, we examine the ability of the minimax search to filter away pruning errors and give bounds on the rate of error propagation to the root. We find that if the rate of pruning error is kept constant, the growth of errors with the depth of the tree dominates the filtering effect, therefore suggesting that pruning should be done more aggressively near the root and less aggressively near the leaves.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Lim and Lee - 2006 - Properties of forward pruning in game-tree search.pdf},
+  isbn = {978-1-57735-281-5},
+  series = {{{AAAI}}'06}
 }
 
 @article{lin_stardata_2017,
@@ -3806,6 +3960,23 @@ show that our evolutionary approach is able to converge to a Nash equilibrium fo
   lccn = {QA76.76.C672 M345 2009}
 }
 
+@article{marsland_review_1986,
+  title = {A {{Review}} of {{Game}}-{{Tree Pruning}}},
+  author = {Marsland, T. A.},
+  year = {1986},
+  month = jan,
+  volume = {9},
+  pages = {3--19},
+  publisher = {{IOS Press}},
+  issn = {1389-6911},
+  doi = {10.3233/ICG-1986-9102},
+  abstract = {Chess programs have three major components: move generation, search, and evaluation. All components are important, although evaluation with its quiescence analysis is the part which makes each program's play unique. The speed of a chess program is a},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Marsland - 1986 - A Review of Game-Tree Pruning.pdf;C\:\\Users\\aesou\\Zotero\\storage\\AVBFRPZN\\Marsland - 1986 - A Review of Game-Tree Pruning.pdf;C\:\\Users\\aesou\\Zotero\\storage\\8FFI9N4X\\icg9-1-02.html},
+  journal = {ICGA Journal},
+  language = {en},
+  number = {1}
+}
+
 @article{mateas_behavior_2002,
   title = {A Behavior Language for Story-Based Believable Agents},
   author = {Mateas, M. and Stern, A.},
@@ -4026,6 +4197,22 @@ show that our evolutionary approach is able to converge to a Nash equilibrium fo
   abstract = {Churchill and Buro (2013) launched a line of research through Portfolio Greedy Search (PGS), an algorithm for adversarial real-time planning that uses scripts to simplify the problem's action space. In this paper we present a problem in PGS's search scheme that has hitherto been overlooked. Namely, even under the strong assumption that PGS is able to evaluate all actions available to the player, PGS might fail to return the best action. We then describe an idealized algorithm that is guaranteed to return the best action and present an approximation of such algorithm, which we call NestedGreedy Search (NGS). Empirical results on {$\mathrm{\mu}$}RTS show that NGS is able to outperform PGS as well as state-of-the-art methods in matches played in small to medium-sized maps.},
   file = {C\:\\Users\\aesou\\Zotero\\storage\\6AXIZA8N\\Moraes and Lelis - 2018 - Nested-Greedy Search for Adversarial Real-Time Gam.pdf},
   language = {en}
+}
+
+@article{muszycka_empirical_1985,
+  title = {An Empirical Comparison of Pruning Strategies in Game Trees},
+  author = {Muszycka, Agata and Shinghal, Rajjan},
+  year = {1985},
+  month = may,
+  volume = {SMC-15},
+  pages = {389--399},
+  issn = {2168-2909},
+  doi = {10.1109/TSMC.1985.6313374},
+  abstract = {Size pruning strategies on uniform and nonuniform game trees of 24 different sizes, each being assigned leaf-node static values under four different schemes, are compared. The performance of these strategies is compared on the basis of nodes created, node visits, and CPU time. These are believed to be the most exhaustive experimental results so far reported.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Muszycka and Shinghal - 1985 - An empirical comparison of pruning strategies in g.pdf;C\:\\Users\\aesou\\Zotero\\storage\\SPEYBFPP\\6313374.html},
+  journal = {IEEE Transactions on Systems, Man, and Cybernetics},
+  keywords = {computer games,CPU time,Cybernetics,game trees,Games,Humans,leaf-node static values,Military aircraft,node visits,Observers,pruning strategies,Reactive power,trees (mathematics),Visualization},
+  number = {3}
 }
 
 @incollection{neller_monte_2016,
@@ -4349,6 +4536,23 @@ In the 2010s, the commercial importance of the video game industry is increasing
   journal = {GSTF International Journal on Computing (JoC Vol.3 No.2)},
   language = {en},
   number = {2}
+}
+
+@article{nunes_learning_nodate,
+  title = {Learning Decision Trees through {{Monte Carlo}} Tree Search: {{An}} Empirical Evaluation},
+  shorttitle = {Learning Decision Trees through {{Monte Carlo}} Tree Search},
+  author = {Nunes, Cec{\'i}lia and Craene, Mathieu De and Langet, H{\'e}l{\`e}ne and Camara, Oscar and Jonsson, Anders},
+  volume = {n/a},
+  pages = {e1348},
+  issn = {1942-4795},
+  doi = {10.1002/widm.1348},
+  abstract = {Decision trees (DTs) are a widely used prediction tool, owing to their interpretability. Standard learning methods follow a locally optimal approach that trades off prediction performance for computational efficiency. Such methods can however be far from optimal, and it may pay off to spend more computational resources to increase performance. Monte Carlo tree search (MCTS) is an approach to approximate optimal choices in exponentially large search spaces. We propose a DT learning approach based on the Upper Confidence Bound applied to tree (UCT) algorithm, including procedures to expand and explore the space of DTs. To mitigate the computational cost of our method, we employ search pruning strategies that discard some branches of the search tree. The experiments show that proposed approach outperformed the C4.5 algorithm in 20 out of 31 datasets, with statistically significant improvements in the trade-off between prediction performance and DT complexity. The approach improved locally optimal search for datasets with more than 1,000 instances, or for smaller datasets likely arising from complex distributions. This article is categorized under: Algorithmic Development {$>$} Hierarchies and Trees Application Areas {$>$} Data Mining Software Tools Fundamental Concepts of Data and Knowledge {$>$} Data Concepts},
+  copyright = {\textcopyright{} 2020 Wiley Periodicals, Inc.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Nunes et al. - Learning decision trees through Monte Carlo tree s.pdf;C\:\\Users\\aesou\\Zotero\\storage\\9TLBWGQY\\widm.html},
+  journal = {WIREs Data Mining and Knowledge Discovery},
+  keywords = {data mining,decision trees,Monte Carlo tree search},
+  language = {en},
+  number = {n/a}
 }
 
 @incollection{obata_consultation_2011,
@@ -4702,6 +4906,19 @@ end, we recreate DeepMind's FullyConv Agent with slightly better results.},
   abstract = {We present Scalable Parallel Depth-First Proof Number Search, a new shared-memory parallel version of depth-first proof number search. Based on the serial DFPN 1 + {$\gamma$} method of Pawlewicz and Lew, SPDFPN searches effiectively even as the transposition table becomes almost full, and so can solve large problems. To assign jobs to threads, SPDFPN uses proof and disproof numbers and two parameters. SPDFPN uses no domain-specific knowledge or heuristics, so it can be used in any domain. Our experiments show that SPDFPN scales well and performs well on hard problems.},
   file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\ICCG 2013\\16 Scalable Parallel DFPN Search.pdf},
   isbn = {978-3-319-09164-8 978-3-319-09165-5},
+  language = {en}
+}
+
+@inproceedings{pelcner_real-time_2020,
+  title = {Real-Time {{Learning}} and {{Planning}} in {{Environments}} with {{Swarms}}:{{A Hierarchical}} and a {{Parameter}}-Based {{Simulation Approach}}},
+  shorttitle = {Real-Time {{Learning}} and {{Planning}} in {{Environments}} with {{Swarms}}},
+  booktitle = {Proceedings of the 19th {{International Conference}} on {{Autonomous Agents}} and {{Multiagent Systems}} ({{AAMAS}} 2020)},
+  author = {Pelcner, Lukasz and Li, Shaling and Do Carmo Alves, Matheus and Soriano Marcolino, Leandro and Collins, Alex},
+  year = {2020},
+  month = jan,
+  abstract = {Swarms can be applied in many relevant domains, such as patrolling or rescue. They usually follow simple local rules, leading to complex emergent behavior. Given their wide applicability, an agent may need to take decisions in an environment containing a swarm that is not under its control, and that may even be an antagonist. Predicting the behavior of each swarm member is a great challenge, and must be done under real time constraints, since they usually move constantly following quick reactive algorithms. We propose the first two solutions for this novel problem, showing integrated on-line learning and planning for decision-making with unknown swarms: (i) we learn an ellipse abstraction of the swarm based on statistical models, and predict its future parameters using time-series; (ii) we learn algorithm parameters followed by each swarm member, in order to directly simulate them. We find in our experiments that we are significantly faster to reach an objective than local repulsive forces, at the cost of success rate in some situations. Additionally, we show that this is a challenging problem for reinforcement learning.},
+  copyright = {creative\_commons\_attribution\_noncommercial\_4\_0\_international\_license},
+  file = {C\:\\Users\\aesou\\Zotero\\storage\\6WLKD7NA\\Pelcner et al. - 2020 - Real-time Learning and Planning in Environments wi.pdf;C\:\\Users\\aesou\\Zotero\\storage\\544FLDCV\\141849.html},
   language = {en}
 }
 
@@ -5637,6 +5854,20 @@ end, we recreate DeepMind's FullyConv Agent with slightly better results.},
   language = {en}
 }
 
+@inproceedings{soemers_learning_2019,
+  title = {Learning {{Policies}} from {{Self}}-{{Play}} with {{Policy Gradients}} and {{MCTS Value Estimates}}},
+  booktitle = {2019 {{IEEE Conference}} on {{Games}} ({{CoG}})},
+  author = {Soemers, Dennis J. N. J. and Piette, {\'E}ric and Stephenson, Matthew and Browne, Cameron},
+  year = {2019},
+  month = aug,
+  pages = {1--8},
+  issn = {2325-4270},
+  doi = {10.1109/CIG.2019.8848037},
+  abstract = {In recent years, state-of-the-art game-playing agents often involve policies that are trained in self-playing processes where Monte Carlo tree search (MCTS) algorithms and trained policies iteratively improve each other. The strongest results have been obtained when policies are trained to mimic the search behaviour of MCTS by minimising a cross-entropy loss. Because MCTS, by design, includes an element of exploration, policies trained in this manner are also likely to exhibit a similar extent of exploration. In this paper, we are interested in learning policies for a project with future goals including the extraction of interpretable strategies, rather than state-of-the-art game-playing performance. For these goals, we argue that such an extent of exploration is undesirable, and we propose a novel objective function for training policies that are not exploratory. We derive a policy gradient expression for maximising this objective function, which can be estimated using MCTS value estimates, rather than MCTS visit counts. We empirically evaluate various properties of resulting policies, in a variety of board games.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\soemers2019.pdf;C\:\\Users\\aesou\\Zotero\\storage\\4JAIUD66\\Soemers et al. - 2019 - Learning Policies from Self-Play with Policy Gradi.pdf;C\:\\Users\\aesou\\Zotero\\storage\\GSEWTY8I\\8848037.html},
+  keywords = {cross-entropy loss,entropy,Feature extraction,game theory,game-playing agents,Games,learning (artificial intelligence),Linear programming,MCTS value estimates,Monte Carlo methods,Monte Carlo tree search algorithms,policy gradient expression,policy gradients,reinforcement learning,Reinforcement learning,search,self-play,Standards,Training,tree searching}
+}
+
 @phdthesis{soemers_tactical_2014,
   title = {Tactical {{Planning Using MCTS}} in the {{Game}} of {{StarCraft}}},
   author = {Soemers, Dennis},
@@ -5926,6 +6157,22 @@ Finally, learning becomes more difficult when controlling increasing numbers of 
   primaryClass = {cs}
 }
 
+@article{sun_tstarbots_2018-1,
+  title = {{{TStarBots}}: {{Defeating}} the {{Cheating Level Builtin AI}} in {{StarCraft II}} in the {{Full Game}}},
+  shorttitle = {{{TStarBots}}},
+  author = {Sun, Peng and Sun, Xinghai and Han, Lei and Xiong, Jiechao and Wang, Qing and Li, Bo and Zheng, Yang and Liu, Ji and Liu, Yongsheng and Liu, Han and Zhang, Tong},
+  year = {2018},
+  month = dec,
+  abstract = {Starcraft II (SC2) is widely considered as the most challenging Real Time Strategy (RTS) game. The underlying challenges include a large observation space, a huge (continuous and infinite) action space, partial observations, simultaneous move for all players, and long horizon delayed rewards for local decisions. To push the frontier of AI research, Deepmind and Blizzard jointly developed the StarCraft II Learning Environment (SC2LE) as a testbench of complex decision making systems. SC2LE provides a few mini games such as MoveToBeacon, CollectMineralShards, and DefeatRoaches, where some AI agents have achieved the performance level of human professional players. However, for full games, the current AI agents are still far from achieving human professional level performance. To bridge this gap, we present two full game AI agents in this paper - the AI agent TStarBot1 is based on deep reinforcement learning over a flat action structure, and the AI agent TStarBot2 is based on hard-coded rules over a hierarchical action structure. Both TStarBot1 and TStarBot2 are able to defeat the built-in AI agents from level 1 to level 10 in a full game (1v1 Zerg-vs-Zerg game on the AbyssalReef map), noting that level 8, level 9, and level 10 are cheating agents with unfair advantages such as full vision on the whole map and resource harvest boosting. To the best of our knowledge, this is the first public work to investigate AI agents that can defeat the built-in AI in the StarCraft II full game.},
+  archivePrefix = {arXiv},
+  eprint = {1809.07193},
+  eprinttype = {arxiv},
+  file = {C\:\\Users\\aesou\\Zotero\\storage\\VN9TKDC6\\Sun et al. - 2018 - TStarBots Defeating the Cheating Level Builtin AI.pdf;C\:\\Users\\aesou\\Zotero\\storage\\W4F4866Q\\1809.html},
+  journal = {arXiv:1809.07193 [cs]},
+  keywords = {Computer Science - Artificial Intelligence},
+  primaryClass = {cs}
+}
+
 @inproceedings{synnaeve_bayesian_2011,
   title = {A {{Bayesian Model}} for {{Plan Recognition}} in {{RTS Games Applied}} to {{StarCraft}}},
   booktitle = {Seventh {{Artificial Intelligence}} and {{Interactive Digital Entertainment Conference}}},
@@ -5996,6 +6243,23 @@ Finally, learning becomes more difficult when controlling increasing numbers of 
   keywords = {Computer Science - Artificial Intelligence,Computer Science - Computation and Language},
   language = {en},
   primaryClass = {cs}
+}
+
+@article{tabibi_verified_2002,
+  title = {{{VERIFIED NULL}}-{{MOVE PRUNING}}},
+  author = {Tabibi, Omid David and Netanyahu, Nathan S.},
+  year = {2002},
+  month = jan,
+  volume = {25},
+  pages = {153--161},
+  publisher = {{IOS Press}},
+  issn = {1389-6911},
+  doi = {10.3233/ICG-2002-25305},
+  abstract = {In this article we review standard null-move pruning and introduce our extended version of it, which we call verified null-move pruning. In verified null-move pruning, whenever the shallow null-move search indicates a fail-high, instead of cutting of},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Tabibi and Netanyahu - 2002 - VERIFIED NULL-MOVE PRUNING.pdf;C\:\\Users\\aesou\\Zotero\\storage\\3P23VKF7\\icg25305.html},
+  journal = {ICGA Journal},
+  language = {en},
+  number = {3}
 }
 
 @inproceedings{tang_review_2018,
@@ -6149,6 +6413,22 @@ Finally, learning becomes more difficult when controlling increasing numbers of 
   file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\ICCG 2010\\12 Computational Experiments with the RAVE Heuristic.pdf},
   isbn = {978-3-642-17927-3 978-3-642-17928-0},
   language = {en}
+}
+
+@article{tom_quality-based_2014,
+  title = {Quality-Based {{Rewards}} for {{Monte}}-{{Carlo Tree Search Simulations}}},
+  author = {Tom, Pepels and J.W, Tak Mandy and Marc, Lanctot and M, Winands Mark H.},
+  year = {2014},
+  pages = {705--710},
+  publisher = {{IOS Press}},
+  issn = {0922-6389},
+  doi = {10.3233/978-1-61499-419-0-705},
+  abstract = {Monte-Carlo Tree Search is a best-first search technique based on simulations to sample the state space of a decision-making problem. In games, positions are evaluated based on estimates obtained from rewards of numerous randomized play-outs. Generally, rewards from play-outs are discrete values representing the outcome of the game (loss, draw, or win), e.g., r {$\in$} \{-1, 0, 1\}, which are backpropagated from expanded leaf nodes to the root node. However, a play-out may provide additional information. In this paper, we introduce new measures for assessing the a posteriori quality of a simulation. We show that altering the rewards of play-outs based on their assessed quality improves results in six distinct two-player games and in the General Game Playing agent CADIAPLAYER. We propose two specific enhancements, the Relative Bonus and Qualitative Bonus. Both are used as control variates, a variance reduction method for statistical simulation. Relative Bonus is based on the number of moves made during a simulation and Qualitative Bonus relies on a domain-dependent assessment of the game's terminal state. We show that the proposed enhancements, both separate and combined, lead to significant performance increases in the domains discussed.},
+  copyright = {\textcopyright{}2014 \&copy; The authors and IOS Press.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Tom et al. - 2014 - Quality-based Rewards for Monte-Carlo Tree Search .pdf},
+  journal = {Frontiers in Artificial Intelligence and Applications},
+  language = {en},
+  place = {Netherlands}
 }
 
 @inproceedings{tong_enhancing_2019,
@@ -6433,6 +6713,24 @@ be used to reduce the search space and to improve the RTS playing bots.},
   lccn = {QA76.76.C672 V53 2008}
 }
 
+@article{vinyals_grandmaster_2019,
+  title = {Grandmaster Level in {{StarCraft II}} Using Multi-Agent Reinforcement Learning},
+  author = {Vinyals, Oriol and Babuschkin, Igor and Czarnecki, Wojciech M. and Mathieu, Micha{\"e}l and Dudzik, Andrew and Chung, Junyoung and Choi, David H. and Powell, Richard and Ewalds, Timo and Georgiev, Petko and Oh, Junhyuk and Horgan, Dan and Kroiss, Manuel and Danihelka, Ivo and Huang, Aja and Sifre, Laurent and Cai, Trevor and Agapiou, John P. and Jaderberg, Max and Vezhnevets, Alexander S. and Leblond, R{\'e}mi and Pohlen, Tobias and Dalibard, Valentin and Budden, David and Sulsky, Yury and Molloy, James and Paine, Tom L. and Gulcehre, Caglar and Wang, Ziyu and Pfaff, Tobias and Wu, Yuhuai and Ring, Roman and Yogatama, Dani and W{\"u}nsch, Dario and McKinney, Katrina and Smith, Oliver and Schaul, Tom and Lillicrap, Timothy and Kavukcuoglu, Koray and Hassabis, Demis and Apps, Chris and Silver, David},
+  year = {2019},
+  month = nov,
+  volume = {575},
+  pages = {350--354},
+  publisher = {{Nature Publishing Group}},
+  issn = {1476-4687},
+  doi = {10.1038/s41586-019-1724-z},
+  abstract = {AlphaStar uses a multi-agent reinforcement learning algorithm and has reached Grandmaster level, ranking among the top 0.2\% of human players for the real-time strategy game StarCraft II.},
+  copyright = {2019 The Author(s), under exclusive licence to Springer Nature Limited},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Vinyals et al. - 2019 - Grandmaster level in StarCraft II using multi-agen.pdf;C\:\\Users\\aesou\\Zotero\\storage\\9GFQB4B4\\s41586-019-1724-z.html},
+  journal = {Nature},
+  language = {en},
+  number = {7782}
+}
+
 @article{vinyals_starcraft_2017-1,
   title = {{{StarCraft II}}: {{A New Challenge}} for {{Reinforcement Learning}}},
   shorttitle = {{{StarCraft II}}},
@@ -6695,6 +6993,24 @@ superior to the computer AI and looses interest in the single player part of the
   primaryClass = {cs}
 }
 
+@article{winands_enhanced_2005,
+  title = {Enhanced Forward Pruning},
+  author = {Winands, Mark H. M. and {van den Herik}, H. Jaap and Uiterwijk, Jos W. H. M. and {van der Werf}, Erik C. D.},
+  year = {2005},
+  month = nov,
+  volume = {175},
+  pages = {315--329},
+  issn = {0020-0255},
+  doi = {10.1016/j.ins.2004.04.011},
+  abstract = {In this paper forward-pruning methods, such as multi-cut and null move, are tested at so-called ALL nodes. We improved the principal variation search by four small but essential additions. The new PVS algorithm guarantees that forward pruning is safe at ALL nodes. Experiments show that multi-cut at ALL nodes (MC-A) when combined with other forward-pruning mechanisms give a significant reduction of the number of nodes searched. In comparison, a (more) aggressive version of the null move (variable null-move bound) gives less reduction at expected ALL nodes. Finally, it is demonstrated that the playing strength of the lines of action program MIA is significantly (scoring 21\% more winning points than the opponent) increased by MC-A.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Winands et al. - 2005 - Enhanced forward pruning.pdf;C\:\\Users\\aesou\\Zotero\\storage\\4UPRKRNS\\S0020025504002750.html},
+  journal = {Information Sciences},
+  keywords = {Lines of action,Multi-cut pruning,search},
+  language = {en},
+  number = {4},
+  series = {Heuristic {{Search}} and {{Computer Game Playing IV}}}
+}
+
 @incollection{winands_evaluation-function_2011,
   title = {Evaluation-{{Function Based Proof}}-{{Number Search}}},
   booktitle = {Computers and {{Games}}},
@@ -6945,11 +7261,13 @@ theory and possible directions for the development of the field.},
   language = {en}
 }
 
-@article{yang_integrating_2020,
+@inproceedings{yang_integrating_2020,
   title = {Integrating {{Search}} and {{Scripts}} for {{Real}}-{{Time Strategy Games}}: {{An Empirical Survey}}},
+  booktitle = {{{AAAI}}-20 {{Workshop}} on {{Reinforcement Learning}} in {{Games}}},
   author = {Yang, Zuozhi and Onta{\~n}{\'o}n, Santiago},
   year = {2020},
   pages = {8},
+  address = {{New York}},
   abstract = {Real-time strategy games are a challenging problem from an AI point of view. Specially, they are particularly hard for tree search algorithms due to their combinatorial branching factors the limited amount of time available to choose actions. As the community grows and many RTS game competitions are held, much work has been done in the direction of integrating hand-authored scripted bots into tree search algorithms, with the goal of making search tractable. In this paper, we survey a collection of representative algorithms that integrate scripts into search or planning algorithms. Then we compare them empirically in the {$\mathrm{\mu}$}RTS environment and examine the trade-offs for designing such algorithms. We also discuss the potential future work in this direction of research and connections to other types of algorithms.},
   file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Yang and Ontañón - 2020 - Integrating Search and Scripts for Real-Time Strat.pdf},
   language = {en}
