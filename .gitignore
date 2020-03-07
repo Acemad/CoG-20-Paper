@@ -274,3 +274,6 @@ TSWLatexianTemp*
 
 # End of https://www.gitignore.io/api/latex
 .vscode/
+
+# Keep pdfs in the figs directory
+!figs/*.pdf
