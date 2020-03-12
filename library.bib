@@ -220,7 +220,7 @@
   author = {Antuori, Valentin and Richoux, Florian},
   year = {2019},
   month = jan,
-  abstract = {Decision-making problems can be modeled as combinatorial optimization problems with Constraint Programming formalisms such as Constrained Optimization Problems. However, few Constraint Programming formalisms can deal with both optimization and uncertainty at the same time, and none of them are convenient to model problems we tackle in this paper. Here, we propose a way to deal with combinatorial optimization problems under uncertainty within the classical Constrained Optimization Problems formalism by injecting the Rank Dependent Utility from decision theory. We also propose a proof of concept of our method to show it is implementable and can solve concrete decision-making problems using a regular constraint solver, and propose a bot that won the partially observable track of the 2018 {$\mathrm{\mu}$}RTS AI competition. Our result shows it is possible to handle uncertainty with regular Constraint Programming solvers, without having to define a new formalism neither to develop dedicated solvers. This brings new perspective to tackle uncertainty in Constraint Programming.},
+  abstract = {Decision-making problems can be modeled as combinatorial optimization problems with Constraint Programming formalisms such as Constrained Optimization Problems. However, few Constraint Programming formalisms can deal with both optimization and uncertainty at the same time, and none of them are convenient to model problems we tackle in this paper. Here, we propose a way to deal with combinatorial optimization problems under uncertainty within the classical Constrained Optimization Problems formalism by injecting the Rank Dependent Utility from decision theory. We also propose a proof of concept of our method to show it is implementable and can solve concrete decision-making problems using a regular constraint solver, and propose a bot that won the partially observable track of the 2018 \textmu{}RTS AI competition. Our result shows it is possible to handle uncertainty with regular Constraint Programming solvers, without having to define a new formalism neither to develop dedicated solvers. This brings new perspective to tackle uncertainty in Constraint Programming.},
   archivePrefix = {arXiv},
   eprint = {1901.00942},
   eprinttype = {arxiv},
@@ -391,7 +391,7 @@
   pages = {69--77},
   issn = {2475-1502, 2475-1510},
   doi = {10.1109/TCIAIG.2017.2717902},
-  abstract = {Significant progress has been made in recent years towards stronger Real-Time Strategy (RTS) game playing agents. Some of the latest approaches have focused on enhancing standard game tree search techniques with a smart sampling of the search space, or on directly reducing this search space. However, experiments have thus far only been performed using small scenarios. We provide experimental results on the performance of these agents on increasingly larger scenarios. Our main contribution is Puppet Search, a new adversarial search framework that reduces the search space by using scripts that can expose choice points to a look-ahead search procedure. Selecting a combination of a script and decisions for its choice points represents an abstract move to be applied next. Such moves can be directly executed in the actual game, or in an abstract representation of the game state which can be used by an adversarial tree search algorithm. We tested Puppet Search in {$\mathrm{\mu}$}RTS, an abstract RTS game popular within the research community, allowing us to directly compare our algorithm against state-of-the-art agents published in the last few years. We show a similar performance to other scripted and search based agents on smaller scenarios, while outperforming them on larger ones.},
+  abstract = {Significant progress has been made in recent years towards stronger Real-Time Strategy (RTS) game playing agents. Some of the latest approaches have focused on enhancing standard game tree search techniques with a smart sampling of the search space, or on directly reducing this search space. However, experiments have thus far only been performed using small scenarios. We provide experimental results on the performance of these agents on increasingly larger scenarios. Our main contribution is Puppet Search, a new adversarial search framework that reduces the search space by using scripts that can expose choice points to a look-ahead search procedure. Selecting a combination of a script and decisions for its choice points represents an abstract move to be applied next. Such moves can be directly executed in the actual game, or in an abstract representation of the game state which can be used by an adversarial tree search algorithm. We tested Puppet Search in \textmu{}RTS, an abstract RTS game popular within the research community, allowing us to directly compare our algorithm against state-of-the-art agents published in the last few years. We show a similar performance to other scripted and search based agents on smaller scenarios, while outperforming them on larger ones.},
   file = {C\:\\Users\\aesou\\Zotero\\storage\\IAZU8EP7\\Barriga et al. - 2018 - Game Tree Search Based on Nondeterministic Action .pdf},
   journal = {IEEE Transactions on Games},
   language = {en},
@@ -418,7 +418,7 @@
   author = {Barriga, Nicolas A and Stanescu, Marius and Buro, Michael},
   year = {2015},
   pages = {9--15},
-  abstract = {Real-Time Strategy (RTS) games have shown to be very resilient to standard adversarial tree search techniques. Recently, a few approaches to tackle their complexity have emerged that use game state or move abstractions, or both. Unfortunately, the supporting experiments were either limited to simpler RTS environments ({$\mathrm{\mu}$}RTS, SparCraft) or lack testing against state-of-the-art game playing agents.},
+  abstract = {Real-Time Strategy (RTS) games have shown to be very resilient to standard adversarial tree search techniques. Recently, a few approaches to tackle their complexity have emerged that use game state or move abstractions, or both. Unfortunately, the supporting experiments were either limited to simpler RTS environments (\textmu{}RTS, SparCraft) or lack testing against state-of-the-art game playing agents.},
   file = {C\:\\Users\\aesou\\Zotero\\storage\\6H2L42KL\\Barriga - 2015 - Puppet Search Enhancing Scripted Behavior by Look.pdf},
   language = {en}
 }
@@ -741,6 +741,25 @@
   publisher = {{AAAI Press}},
   abstract = {This position paper discusses AI challenges in the area of real\textendash{}time strategy games and presents a research agenda aimed at improving AI performance in these popular multi\textendash{} player computer games. RTS Games and AI Research Real\textendash{}time strategy (RTS) games such as Blizzard Entertainment's Starcraft (tm) and Warcraft (tm) series form a large and growing part of the multi\textendash{}billion dollar computer games industry. In these games several players fight over resources, which are scattered over a terrain, by first setting up economies, building armies, and ultimately trying to eliminate all enemy units and buildings. The current AI performance in commercial RTS games is poor. The main reasons why the AI performance in RTS games is lagging behind developments},
   file = {C\:\\Users\\aesou\\Zotero\\storage\\GF6R46KM\\Buro - 2004 - Call for AI research in RTS games.pdf;C\:\\Users\\aesou\\Zotero\\storage\\325QBXBL\\summary.html}
+}
+
+@inproceedings{buro_orts_2003,
+  title = {{{ORTS}}: {{A Hack}}-{{Free RTS Game Environment}}},
+  shorttitle = {{{ORTS}}},
+  booktitle = {Computers and {{Games}}},
+  author = {Buro, Michael},
+  editor = {Schaeffer, Jonathan and M{\"u}ller, Martin and Bj{\"o}rnsson, Yngvi},
+  year = {2003},
+  pages = {280--291},
+  publisher = {{Springer}},
+  address = {{Berlin, Heidelberg}},
+  doi = {10.1007/978-3-540-40031-8_19},
+  abstract = {This paper presents a novel approach to Real-Time-Strategy (RTS) gaming which allows human players as well as machines to compete in a hack-free environment. The main idea is to replace popular but inherently insecure client-side game simulations by a secure server-side game simulation. Only visible parts of the game state are sent to the respective clients. Client-side hacking is therefore impossible and players are free to choose any client software they please. We discuss performance issues arising from server-side simulation and present ORTS \textendash{} an open RTS game toolkit. This software package provides efficient C++ implementations for 2D object motion and collision detection, visibility computation, and incremental server-client data synchronization, as well as connectivity to the Generic Game Server (GGS). It is therefore well suited as a platform for RTS related A.I. research.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Buro - 2003 - ORTS A Hack-Free RTS Game Environment.pdf},
+  isbn = {978-3-540-40031-8},
+  keywords = {Client Software,Collision Time,Game Simulation,Game State,Information Hiding},
+  language = {en},
+  series = {Lecture {{Notes}} in {{Computer Science}}}
 }
 
 @inproceedings{buro_real-time_2003,
@@ -2608,12 +2627,12 @@ Fourth, UAlbertaBot: our starcraft AI bot which won the 2013 AIIDE starcraft AI 
 }
 
 @inproceedings{huang_comparing_2019,
-  title = {Comparing {{Observation}} and {{Action Representations}} for {{Deep Reinforcement Learning}} in {{$\mathrm{\mu}$RTS}}},
+  title = {Comparing {{Observation}} and {{Action Representations}} for {{Deep Reinforcement Learning}} in {{\textmu{}RTS}}},
   booktitle = {{{AIIDE Workshop}} on {{Artificial Intelligence}} for {{Strategy Games}}},
   author = {Huang, Shengyi and Onta{\~n}{\'o}n, Santiago},
   year = {2019},
   month = oct,
-  abstract = {This paper presents a preliminary study comparing different observation and action space representations for Deep Reinforcement Learning (DRL) in the context of Real-time Strategy (RTS) games. Specifically, we compare two representations: (1) a global representation where the observation represents the whole game state, and the RL agent needs to choose which unit to issue actions to, and which actions to execute; and (2) a local representation where the observation is represented from the point of view of an individual unit, and the RL agent picks actions for each unit independently. We evaluate these representations in {$\mathrm{\mu}$}RTS showing that the local representation seems to outperform the global representation when training agents with the task of harvesting resources.},
+  abstract = {This paper presents a preliminary study comparing different observation and action space representations for Deep Reinforcement Learning (DRL) in the context of Real-time Strategy (RTS) games. Specifically, we compare two representations: (1) a global representation where the observation represents the whole game state, and the RL agent needs to choose which unit to issue actions to, and which actions to execute; and (2) a local representation where the observation is represented from the point of view of an individual unit, and the RL agent picks actions for each unit independently. We evaluate these representations in \textmu{}RTS showing that the local representation seems to outperform the global representation when training agents with the task of harvesting resources.},
   file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Huang and Ontañón - 2019 - Comparing Observation and Action Representations f 2.pdf;C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Huang and Ontañón - 2019 - Comparing Observation and Action Representations f.pdf},
   language = {en}
 }
@@ -2903,11 +2922,11 @@ Fourth, UAlbertaBot: our starcraft AI bot which won the 2013 AIIDE starcraft AI 
 }
 
 @inproceedings{kantharaju_ccg_2018,
-  title = {{{$\mathrm{\mu}$CCG}}, a {{CCG}}-Based {{Game}}-{{Playing Agent}} for {{$\mathrm{\mu}$RTS}}},
+  title = {{{\textmu{}CCG}}, a {{CCG}}-Based {{Game}}-{{Playing Agent}} for {{\textmu{}RTS}}},
   booktitle = {{{IEEE Conference}} on {{Computational Intelligence}} and {{Games}} ({{CIG}})},
   author = {Kantharaju, Pavan and Ontanon, Santiago and Geib, Christopher W},
   year = {2018},
-  abstract = {This paper presents a Combinatory Categorial Grammar-based game playing agent called {$\mathrm{\mu}$}CCG for the RealTime Strategy testbed {$\mathrm{\mu}$}RTS. The key problem that {$\mathrm{\mu}$}CCG tries to address is that of adversarial planning in the very large search space of RTS games. In order to address this problem, we present a new hierarchical adversarial planning algorithm based on Combinatory Categorial Grammars (CCGs). The grammar used by our planner is automatically learned from sequences of actions taken from game replay data. We provide an empirical analysis of our agent against agents from the CIG 2017 {$\mathrm{\mu}$}RTS competition using competition rules. {$\mathrm{\mu}$}CCG represents the first complete agent to use a learned formal grammar representation of plans to adversarially plan in RTS games.},
+  abstract = {This paper presents a Combinatory Categorial Grammar-based game playing agent called \textmu{}CCG for the RealTime Strategy testbed \textmu{}RTS. The key problem that \textmu{}CCG tries to address is that of adversarial planning in the very large search space of RTS games. In order to address this problem, we present a new hierarchical adversarial planning algorithm based on Combinatory Categorial Grammars (CCGs). The grammar used by our planner is automatically learned from sequences of actions taken from game replay data. We provide an empirical analysis of our agent against agents from the CIG 2017 \textmu{}RTS competition using competition rules. \textmu{}CCG represents the first complete agent to use a learned formal grammar representation of plans to adversarially plan in RTS games.},
   file = {C\:\\Users\\aesou\\Zotero\\storage\\JUS9HMDA\\Kantharaju et al. - 2018 - µCCG, a CCG-based Game-Playing Agent for µRTS.pdf},
   language = {en}
 }
@@ -3108,6 +3127,23 @@ human player, as well as results from previous research. The results are fairly 
   keywords = {Bandit Problem,Drift Condition,Failure Probability,Multiarmed Bandit,Multiarmed Bandit Problem},
   language = {en},
   series = {Lecture {{Notes}} in {{Computer Science}}}
+}
+
+@article{kocsis_two_2003,
+  title = {{{TWO LEARNING ALGORITHMS FOR FORWARD PRUNING}}},
+  author = {Kocsis, Levente and {van den Herik}, H. Jaap and Uiterwijk, Jos W. H. M.},
+  year = {2003},
+  month = jan,
+  volume = {26},
+  pages = {165--181},
+  publisher = {{IOS Press}},
+  issn = {1389-6911},
+  doi = {10.3233/ICG-2003-26303},
+  abstract = {The article investigates two learning algorithms for forward pruning. The TS-FPV algorithm uses a tabu-search (TS) algorithm to explore the space of the forward-pruning vectors (FPVs). It focuses on critical FPVs. The RL-FPF algorithm is a reinforcem},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Kocsis et al. - 2003 - TWO LEARNING ALGORITHMS FOR FORWARD PRUNING.pdf;C\:\\Users\\aesou\\Zotero\\storage\\FLH4B34B\\icg26303.html},
+  journal = {ICGA Journal},
+  language = {en},
+  number = {3}
 }
 
 @inproceedings{komenda_robustness_2014,
@@ -3588,6 +3624,20 @@ human player, as well as results from previous research. The results are fairly 
   file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\ICCG 2008\\17 Frequency Distribution of Contextual Patterns in the Game of Go.pdf},
   isbn = {978-3-540-87607-6 978-3-540-87608-3},
   language = {en}
+}
+
+@inproceedings{liu_hierarchical_2019,
+  title = {A {{Hierarchical Model}} for {{StarCraft II Mini}}-{{Game}}},
+  booktitle = {2019 18th {{IEEE International Conference On Machine Learning And Applications}} ({{ICMLA}})},
+  author = {Liu, Tianlin and Wu, Xihong and Luo, Dingsheng},
+  year = {2019},
+  month = dec,
+  pages = {222--227},
+  issn = {null},
+  doi = {10.1109/ICMLA.2019.00042},
+  abstract = {StarCraft II is one of the most challenging real-time strategy games, due to huge action space, large observation space, imperfect information, etc. Therefore, it is hard to learn the full game of StarCraft II. To reduce the learning complexity, DeepMind and Blizzard released several mini-games, in which the BuildMarines mini-game is most challenging, due to long time horizons, partially-observed state, high-dimensional, continuous action space and observation space. In this paper, we propose a hierarchical modeling method to solve those challenges in BuildMarines mini-game. Our approach consists of two levels, combining learning-based (high-level) and rule-based (low-level) method. The learning-based method leverages DQN reinforcement learning algorithm, while the rule-based method leverages script to realize. Experimental results show that the proposed approach is effective for an agent to learn the long planning horizon game, BuildMarines.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\liu2019.pdf;C\:\\Users\\aesou\\Zotero\\storage\\ICZFVAQ9\\8999313.html},
+  keywords = {Buildings,Games,Learning (artificial intelligence),Machine learning,Minerals,Planning,StarCraft II; game; real time strategy game; hierarchical modeling; DQN; reinforcement learning,Task analysis}
 }
 
 @inproceedings{liu_using_2013,
@@ -4173,7 +4223,7 @@ show that our evolutionary approach is able to converge to a Nash equilibrium fo
   booktitle = {{{AAAI Publications}}, {{Fourteenth Artificial Intelligence}} and {{Interactive Digital Entertainment Conference}}},
   author = {Moraes, Rubens O and Mari{\~n}o, Julian R. H. and Lelis, Levi H. S. and Nascimento, Mario A.},
   year = {2018},
-  abstract = {Search algorithms based on combinatorial multi-armed bandits (CMABs) are promising for dealing with state-space sequential decision problems. However, current CMAB-based algorithms do not scale to problem domains with very large actions spaces, such as real-time strategy games played in large maps. In this paper we introduce CMAB-based search algorithms that use action abstraction schemes to reduce the action space considered during search. One of the approaches we introduce use regular action abstractions (A1N), while the other two use asymmetric action abstractions (A2N and A3N). Empirical results on {$\mathrm{\mu}$}RTS show that A1N, A2N, and A3N are able to outperform an existing CMAB-based algorithm in matches played in large maps, and A3N is able to outperform all state-of-the-art search algorithms tested.},
+  abstract = {Search algorithms based on combinatorial multi-armed bandits (CMABs) are promising for dealing with state-space sequential decision problems. However, current CMAB-based algorithms do not scale to problem domains with very large actions spaces, such as real-time strategy games played in large maps. In this paper we introduce CMAB-based search algorithms that use action abstraction schemes to reduce the action space considered during search. One of the approaches we introduce use regular action abstractions (A1N), while the other two use asymmetric action abstractions (A2N and A3N). Empirical results on \textmu{}RTS show that A1N, A2N, and A3N are able to outperform an existing CMAB-based algorithm in matches played in large maps, and A3N is able to outperform all state-of-the-art search algorithms tested.},
   file = {C\:\\Users\\aesou\\Zotero\\storage\\6VVE949K\\Moraes - 2018 - Action Abstractions for Combinatorial Multi-Armed .pdf},
   language = {en}
 }
@@ -4194,7 +4244,7 @@ show that our evolutionary approach is able to converge to a Nash equilibrium fo
   booktitle = {{{AIIDE}}},
   author = {Moraes, Rubens O and Lelis, Levi H S},
   year = {2018},
-  abstract = {Churchill and Buro (2013) launched a line of research through Portfolio Greedy Search (PGS), an algorithm for adversarial real-time planning that uses scripts to simplify the problem's action space. In this paper we present a problem in PGS's search scheme that has hitherto been overlooked. Namely, even under the strong assumption that PGS is able to evaluate all actions available to the player, PGS might fail to return the best action. We then describe an idealized algorithm that is guaranteed to return the best action and present an approximation of such algorithm, which we call NestedGreedy Search (NGS). Empirical results on {$\mathrm{\mu}$}RTS show that NGS is able to outperform PGS as well as state-of-the-art methods in matches played in small to medium-sized maps.},
+  abstract = {Churchill and Buro (2013) launched a line of research through Portfolio Greedy Search (PGS), an algorithm for adversarial real-time planning that uses scripts to simplify the problem's action space. In this paper we present a problem in PGS's search scheme that has hitherto been overlooked. Namely, even under the strong assumption that PGS is able to evaluate all actions available to the player, PGS might fail to return the best action. We then describe an idealized algorithm that is guaranteed to return the best action and present an approximation of such algorithm, which we call NestedGreedy Search (NGS). Empirical results on \textmu{}RTS show that NGS is able to outperform PGS as well as state-of-the-art methods in matches played in small to medium-sized maps.},
   file = {C\:\\Users\\aesou\\Zotero\\storage\\6AXIZA8N\\Moraes and Lelis - 2018 - Nested-Greedy Search for Adversarial Real-Time Gam.pdf},
   language = {en}
 }
@@ -4607,7 +4657,7 @@ In the 2010s, the commercial importance of the video game industry is increasing
   publisher = {{Springer International Publishing}},
   address = {{Cham}},
   doi = {10.1007/978-3-319-50935-8_8},
-  abstract = {The puzzle game 2048, a single-player stochastic game played on a 4 \texttimes{} 4 grid, is the most popular among similar slide-and-merge games. One of the strongest computer players for 2048 uses temporal difference learning (TD learning) with N -tuple networks, and it matters a great deal how to design N -tuple networks. In this paper, we study the N -tuple networks for the game 2048. In the first set of experiments, we conduct TD learning by selecting 6- and 7-tuples exhaustively, and evaluate the usefulness of those tuples. In the second set of experiments, we conduct TD learning with high-utility tuples, varying the number of tuples. The best player with ten 7-tuples achieves an average score 234,136 and the maximum score 504,660. It is worth noting that this player utilize no game-tree search and plays a move in about 12 {$\mathrm{\mu}$}s.},
+  abstract = {The puzzle game 2048, a single-player stochastic game played on a 4 \texttimes{} 4 grid, is the most popular among similar slide-and-merge games. One of the strongest computer players for 2048 uses temporal difference learning (TD learning) with N -tuple networks, and it matters a great deal how to design N -tuple networks. In this paper, we study the N -tuple networks for the game 2048. In the first set of experiments, we conduct TD learning by selecting 6- and 7-tuples exhaustively, and evaluate the usefulness of those tuples. In the second set of experiments, we conduct TD learning with high-utility tuples, varying the number of tuples. The best player with ten 7-tuples achieves an average score 234,136 and the maximum score 504,660. It is worth noting that this player utilize no game-tree search and plays a move in about 12 \textmu{}s.},
   file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\ICCG 2016\\12 Systematic Selection of N-Tuple Networks for 2048.pdf},
   isbn = {978-3-319-50934-1 978-3-319-50935-8},
   language = {en}
@@ -4736,7 +4786,7 @@ of the art search algorithms for RTS games.},
   publisher = {{IEEE}},
   address = {{Santorini, Greece}},
   doi = {10.1109/CIG.2016.7860394},
-  abstract = {The recent success of AlphaGO has shown that it is possible to combine machine learning with Monte Carlo Tree Search (MCTS) in order to improve performance in games with large branching factors. This paper explores the question of whether similar ideas can be applied to a genre of games with an even larger branching factor: Real-Time Strategy games. Specifically, this paper studies (1) the use of Bayesian models to estimate the probability distribution of actions played by a strong player, (2) the incorporation of such models into NaiveMCTS, a MCTS algorithm designed for games with combinatorial branching factors. We call this approach informed MCTS, since it exploits prior information about the game in the form of a probability distribution of actions. We evaluate its performance in the {$\mathrm{\mu}$}RTS game simulator, significantly outperforming the previous state of the art.},
+  abstract = {The recent success of AlphaGO has shown that it is possible to combine machine learning with Monte Carlo Tree Search (MCTS) in order to improve performance in games with large branching factors. This paper explores the question of whether similar ideas can be applied to a genre of games with an even larger branching factor: Real-Time Strategy games. Specifically, this paper studies (1) the use of Bayesian models to estimate the probability distribution of actions played by a strong player, (2) the incorporation of such models into NaiveMCTS, a MCTS algorithm designed for games with combinatorial branching factors. We call this approach informed MCTS, since it exploits prior information about the game in the form of a probability distribution of actions. We evaluate its performance in the \textmu{}RTS game simulator, significantly outperforming the previous state of the art.},
   file = {C\:\\Users\\aesou\\Zotero\\storage\\PB764A8D\\Ontanon - 2016 - Informed Monte Carlo Tree Search for Real-Time Str.pdf},
   isbn = {978-1-5090-1883-3},
   language = {en}
@@ -5156,6 +5206,22 @@ end, we recreate DeepMind's FullyConv Agent with slightly better results.},
   language = {en}
 }
 
+@article{real_automl-zero_2020,
+  title = {{{AutoML}}-{{Zero}}: {{Evolving Machine Learning Algorithms From Scratch}}},
+  shorttitle = {{{AutoML}}-{{Zero}}},
+  author = {Real, Esteban and Liang, Chen and So, David R. and Le, Quoc V.},
+  year = {2020},
+  month = mar,
+  abstract = {Machine learning research has advanced in multiple aspects, including model structures and learning methods. The effort to automate such research, known as AutoML, has also made significant progress. However, this progress has largely focused on the architecture of neural networks, where it has relied on sophisticated expert-designed layers as building blocks---or similarly restrictive search spaces. Our goal is to show that AutoML can go further: it is possible today to automatically discover complete machine learning algorithms just using basic mathematical operations as building blocks. We demonstrate this by introducing a novel framework that significantly reduces human bias through a generic search space. Despite the vastness of this space, evolutionary search can still discover two-layer neural networks trained by backpropagation. These simple neural networks can then be surpassed by evolving directly on tasks of interest, e.g. CIFAR-10 variants, where modern techniques emerge in the top algorithms, such as bilinear interactions, normalized gradients, and weight averaging. Moreover, evolution adapts algorithms to different task types: e.g., dropout-like techniques appear when little data is available. We believe these preliminary successes in discovering machine learning algorithms from scratch indicate a promising new direction for the field.},
+  archivePrefix = {arXiv},
+  eprint = {2003.03384},
+  eprinttype = {arxiv},
+  file = {C\:\\Users\\aesou\\Zotero\\storage\\RE8VYNAM\\Real et al. - 2020 - AutoML-Zero Evolving Machine Learning Algorithms .pdf;C\:\\Users\\aesou\\Zotero\\storage\\B7IK9U78\\2003.html},
+  journal = {arXiv:2003.03384 [cs, stat]},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning,Computer Science - Neural and Evolutionary Computing,I.2.2,I.2.6,Statistics - Machine Learning},
+  primaryClass = {cs, stat}
+}
+
 @article{richoux_ghost_2016,
   title = {Ghost: {{A Combinatorial Optimization Framework}} for {{Real}}-{{Time Problems}}},
   shorttitle = {Ghost},
@@ -5483,6 +5549,20 @@ end, we recreate DeepMind's FullyConv Agent with slightly better results.},
   language = {English}
 }
 
+@inproceedings{sato_three_2016,
+  title = {Three Types of Forward Pruning Techniques to Apply the Alpha Beta Algorithm to Turn-Based Strategy Games},
+  booktitle = {2016 {{IEEE Conference}} on {{Computational Intelligence}} and {{Games}} ({{CIG}})},
+  author = {Sato, Naoyuki and Ikeda, Kokolo},
+  year = {2016},
+  month = sep,
+  pages = {1--8},
+  issn = {2325-4289},
+  doi = {10.1109/CIG.2016.7860427},
+  abstract = {Turn-based strategy games are interesting testbeds for developing artificial players because their rules present developers with several challenges. Currently, Monte-Carlo tree search variants are often utilized to address these challenges. However, we consider it worthwhile introducing minimax search variants with pruning techniques because a turn-based strategy is in some points similar to the games of chess and Shogi, in which minimax variants are known to be effective. Thus, we introduced three forward-pruning techniques to enable us to apply alpha beta search (as a minimax search variant) to turn-based strategy games. This type of search involves fixing unit action orders, generating unit actions selectively, and limiting the number of moving units in a search. We applied our proposed pruning methods by implementing an alpha beta-based artificial player in the Turn-based strategy Academic Package (TUBSTAP) open platform of our institute. This player competed against first- and second-rank players in the TUBSTAP AI competition in 2016. Our proposed player won against the other players in five different maps with an average winning ratio exceeding 70\%.},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Sato and Ikeda - 2016 - Three types of forward pruning techniques to apply.pdf;C\:\\Users\\aesou\\Zotero\\storage\\CFQI537D\\7860427.html},
+  keywords = {alpha beta algorithm,Artificial intelligence,artificial player development,chess game,computer games,Computers,Electronic mail,forward pruning techniques,Games,Limiting,minimax search variants,minimax techniques,Monte Carlo methods,Monte-Carlo tree search,open platform,Shogi,tree searching,TUBSTAP AI competition,turn-based strategy academic package,turn-based strategy games,unit action generation,unit action orders,Vegetation}
+}
+
 @incollection{schadd_single-player_2008,
   title = {Single-{{Player Monte}}-{{Carlo Tree Search}}},
   booktitle = {Computers and {{Games}}},
@@ -5748,7 +5828,7 @@ end, we recreate DeepMind's FullyConv Agent with slightly better results.},
   year = {2018},
   issn = {2475-1502, 2475-1510},
   doi = {10.1109/TG.2018.2848913},
-  abstract = {Real-time strategy (RTS) games are a challenging application for Artificial Intelligence (AI) methods. This is because they involve simultaneous play and adversarial reasoning that is conducted in real time in large state spaces. Many AI methods for playing RTS games rely on hard-coded strategies designed by human experts. The drawback of using such strategies is that they are often unable to adapt to new scenarios during gameplay. The contribution of this paper is a new approach, called Strategy Creation via Voting (SCV), that uses a voting method to generate a large set of novel strategies from existing expert-based ones. Then, SCV uses an opponent modeling scheme during the game to choose which strategy from the generated pool of possibilities to use. By repeatedly choosing which strategy to use, SCV is able to adapt to different scenarios that might arise during the game. We implemented SCV as a bot for {$\mathrm{\mu}$}RTS, a recognized RTS testbed. The results of a detailed empirical study show that SCV outperforms all approaches tested in matches played on large maps and is competitive in matches played on smaller maps.},
+  abstract = {Real-time strategy (RTS) games are a challenging application for Artificial Intelligence (AI) methods. This is because they involve simultaneous play and adversarial reasoning that is conducted in real time in large state spaces. Many AI methods for playing RTS games rely on hard-coded strategies designed by human experts. The drawback of using such strategies is that they are often unable to adapt to new scenarios during gameplay. The contribution of this paper is a new approach, called Strategy Creation via Voting (SCV), that uses a voting method to generate a large set of novel strategies from existing expert-based ones. Then, SCV uses an opponent modeling scheme during the game to choose which strategy from the generated pool of possibilities to use. By repeatedly choosing which strategy to use, SCV is able to adapt to different scenarios that might arise during the game. We implemented SCV as a bot for \textmu{}RTS, a recognized RTS testbed. The results of a detailed empirical study show that SCV outperforms all approaches tested in matches played on large maps and is competitive in matches played on smaller maps.},
   file = {C\:\\Users\\aesou\\Zotero\\storage\\SIVPVTQM\\Silva et al. - 2018 - Strategy Generation for Multi-Unit Real-Time Games.pdf},
   journal = {IEEE Transactions on Games},
   language = {en}
@@ -5864,7 +5944,7 @@ end, we recreate DeepMind's FullyConv Agent with slightly better results.},
   issn = {2325-4270},
   doi = {10.1109/CIG.2019.8848037},
   abstract = {In recent years, state-of-the-art game-playing agents often involve policies that are trained in self-playing processes where Monte Carlo tree search (MCTS) algorithms and trained policies iteratively improve each other. The strongest results have been obtained when policies are trained to mimic the search behaviour of MCTS by minimising a cross-entropy loss. Because MCTS, by design, includes an element of exploration, policies trained in this manner are also likely to exhibit a similar extent of exploration. In this paper, we are interested in learning policies for a project with future goals including the extraction of interpretable strategies, rather than state-of-the-art game-playing performance. For these goals, we argue that such an extent of exploration is undesirable, and we propose a novel objective function for training policies that are not exploratory. We derive a policy gradient expression for maximising this objective function, which can be estimated using MCTS value estimates, rather than MCTS visit counts. We empirically evaluate various properties of resulting policies, in a variety of board games.},
-  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\soemers2019.pdf;C\:\\Users\\aesou\\Zotero\\storage\\4JAIUD66\\Soemers et al. - 2019 - Learning Policies from Self-Play with Policy Gradi.pdf;C\:\\Users\\aesou\\Zotero\\storage\\GSEWTY8I\\8848037.html},
+  file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Soemers et al. - 2019 - Learning Policies from Self-Play with Policy Gradi.pdf;C\:\\Users\\aesou\\Zotero\\storage\\4JAIUD66\\Soemers et al. - 2019 - Learning Policies from Self-Play with Policy Gradi.pdf;C\:\\Users\\aesou\\Zotero\\storage\\GSEWTY8I\\8848037.html},
   keywords = {cross-entropy loss,entropy,Feature extraction,game theory,game-playing agents,Games,learning (artificial intelligence),Linear programming,MCTS value estimates,Monte Carlo methods,Monte Carlo tree search algorithms,policy gradient expression,policy gradients,reinforcement learning,Reinforcement learning,search,self-play,Standards,Training,tree searching}
 }
 
@@ -6120,7 +6200,7 @@ Finally, learning becomes more difficult when controlling increasing numbers of 
   pages = {872},
   issn = {2076-3417},
   doi = {10.3390/app7090872},
-  abstract = {The application of artificial intelligence (AI) to real-time strategy (RTS) games includes considerable challenges due to the very large state spaces and branching factors, limited decision times, and dynamic adversarial environments involved. To address these challenges, hierarchical task network (HTN) planning has been extended to develop a method denoted as adversarial HTN (AHTN), and this method has achieved favorable performance. However, the HTN description employed cannot express complex relationships among tasks and accommodate the impacts of the environment on tasks. Moreover, AHTN cannot address task failures during plan execution. Therefore, this paper proposes a modified AHTN planning algorithm with failed task repair functionality denoted as AHTN-R. The algorithm extends the HTN description by introducing three additional elements: essential task, phase, and exit condition. If any task fails during plan execution, the AHTN-R algorithm identifies and terminates all affected tasks according to the extended HTN description, and applies a novel task repair strategy based on a prioritized listing of alternative plans to maintain the validity of the previous plan. In the planning process, AHTN-R generates the priorities of alternative plans by sorting all nodes of the game search tree according to their primary features. Finally, empirical results are presented based on a {$\mathrm{\mu}$}RTS game, and the performance of AHTN-R is compared to that of AHTN and to the performances of other state-of-the-art search algorithms developed for RTS games.},
+  abstract = {The application of artificial intelligence (AI) to real-time strategy (RTS) games includes considerable challenges due to the very large state spaces and branching factors, limited decision times, and dynamic adversarial environments involved. To address these challenges, hierarchical task network (HTN) planning has been extended to develop a method denoted as adversarial HTN (AHTN), and this method has achieved favorable performance. However, the HTN description employed cannot express complex relationships among tasks and accommodate the impacts of the environment on tasks. Moreover, AHTN cannot address task failures during plan execution. Therefore, this paper proposes a modified AHTN planning algorithm with failed task repair functionality denoted as AHTN-R. The algorithm extends the HTN description by introducing three additional elements: essential task, phase, and exit condition. If any task fails during plan execution, the AHTN-R algorithm identifies and terminates all affected tasks according to the extended HTN description, and applies a novel task repair strategy based on a prioritized listing of alternative plans to maintain the validity of the previous plan. In the planning process, AHTN-R generates the priorities of alternative plans by sorting all nodes of the game search tree according to their primary features. Finally, empirical results are presented based on a \textmu{}RTS game, and the performance of AHTN-R is compared to that of AHTN and to the performances of other state-of-the-art search algorithms developed for RTS games.},
   file = {C\:\\Users\\aesou\\Zotero\\storage\\77T27878\\Sun et al. - 2017 - Modified Adversarial Hierarchical Task Network Pla.pdf},
   journal = {Applied Sciences},
   language = {en},
@@ -6310,7 +6390,7 @@ Finally, learning becomes more difficult when controlling increasing numbers of 
   booktitle = {2018 {{IEEE Conference}} on {{Computational Intelligence}} and {{Games}} ({{CIG}})},
   author = {Tavares, Anderson R and Chaimowicz, Luiz},
   year = {2018},
-  abstract = {Real-Time Strategy (RTS) games are complex domains with huge state and action spaces. In such games, humans usually pursue long-term plans, which take long sequences of actions to achieve. In this work, we implement this behavior by reasoning over options, which are temporally-extended actions in Markov Decision Processes. Our options are defined with the aid of a state aggregation scheme and a portfolio of game-playing algorithms. Experimentally, we show that our approach leverages the capabilities of traditional reinforcement-learning techniques, which become competitive against state-of-the-art search methods in {$\mathrm{\mu}$}RTS.},
+  abstract = {Real-Time Strategy (RTS) games are complex domains with huge state and action spaces. In such games, humans usually pursue long-term plans, which take long sequences of actions to achieve. In this work, we implement this behavior by reasoning over options, which are temporally-extended actions in Markov Decision Processes. Our options are defined with the aid of a state aggregation scheme and a portfolio of game-playing algorithms. Experimentally, we show that our approach leverages the capabilities of traditional reinforcement-learning techniques, which become competitive against state-of-the-art search methods in \textmu{}RTS.},
   file = {C\:\\Users\\aesou\\Zotero\\storage\\5Y8LSUSV\\Tavares and Chaimowicz - 2018 - Tabular Reinforcement Learning in Real-Time Strate.pdf},
   language = {en}
 }
@@ -6629,7 +6709,7 @@ be used to reduce the search space and to improve the RTS playing bots.},
   publisher = {{IEEE}},
   address = {{New York, NY, USA}},
   doi = {10.1109/CIG.2017.8080449},
-  abstract = {Real-Time Strategy (RTS) games pose a big challenge due their large branching factor and real-time nature. This challenge is even bigger if we consider partially observable RTS games due to the fog-of-war. This paper focuses on extending Monte Carlo Tree Search (MCTS) algorithms for RTS games to consider partially observable settings. Specifically, we investigate sampling a single believe state consistent with a perfect memory of all the past observations in the current game, and using it to perform MCTS. We evaluate the performance of this approach in the {$\mathrm{\mu}$}RTS game simulator, showing that the performance of this approach is only between 8\%-15\% lower than if we could observe the entire game state (e.g., by cheating).},
+  abstract = {Real-Time Strategy (RTS) games pose a big challenge due their large branching factor and real-time nature. This challenge is even bigger if we consider partially observable RTS games due to the fog-of-war. This paper focuses on extending Monte Carlo Tree Search (MCTS) algorithms for RTS games to consider partially observable settings. Specifically, we investigate sampling a single believe state consistent with a perfect memory of all the past observations in the current game, and using it to perform MCTS. We evaluate the performance of this approach in the \textmu{}RTS game simulator, showing that the performance of this approach is only between 8\%-15\% lower than if we could observe the entire game state (e.g., by cheating).},
   file = {C\:\\Users\\aesou\\Zotero\\storage\\7B6LGNED\\Uriarte and Ontañón - 2017 - Single believe state generation for partially obse.pdf},
   isbn = {978-1-5386-3233-8},
   language = {en}
@@ -7230,7 +7310,7 @@ theory and possible directions for the development of the field.},
   pages = {79320--79330},
   issn = {2169-3536},
   doi = {10.1109/ACCESS.2019.2923419},
-  abstract = {As the basic problem of the real-time strategy (RTS) games, AI planning has attracted wide attention of researchers, but it still remains as a huge challenge due to its large searching space and realtime nature. The situation may get worse when the planning in RTS games is implemented under a partially observable environment considering the existence of the fog-of-war. Given the recorded past positions of an agent, it would be helpful if the targets' next position can be predicted based on the recorded data since this will increase the certainty of the target. Therefore, this paper proposes a fuzzy theory-based single belief state generation method named FTH to do what based on multi-layer information sets extracted from the history position information. Besides, we incorporate the FTH generation method into adversarial hierarchical task network repairing (AHTNR) planning algorithm, which can be used for the prediction of the unit's position and task planning. Finally, we carry out an empirical study based on the {$\mathrm{\mu}$}RTS game and validate its effectiveness by comparing its performance with that of other state-of-the-art algorithms.},
+  abstract = {As the basic problem of the real-time strategy (RTS) games, AI planning has attracted wide attention of researchers, but it still remains as a huge challenge due to its large searching space and realtime nature. The situation may get worse when the planning in RTS games is implemented under a partially observable environment considering the existence of the fog-of-war. Given the recorded past positions of an agent, it would be helpful if the targets' next position can be predicted based on the recorded data since this will increase the certainty of the target. Therefore, this paper proposes a fuzzy theory-based single belief state generation method named FTH to do what based on multi-layer information sets extracted from the history position information. Besides, we incorporate the FTH generation method into adversarial hierarchical task network repairing (AHTNR) planning algorithm, which can be used for the prediction of the unit's position and task planning. Finally, we carry out an empirical study based on the \textmu{}RTS game and validate its effectiveness by comparing its performance with that of other state-of-the-art algorithms.},
   file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Yang et al. - 2019 - Fuzzy Theory Based Single Belief State Generation .pdf},
   journal = {IEEE Access},
   language = {en}
@@ -7268,7 +7348,7 @@ theory and possible directions for the development of the field.},
   year = {2020},
   pages = {8},
   address = {{New York}},
-  abstract = {Real-time strategy games are a challenging problem from an AI point of view. Specially, they are particularly hard for tree search algorithms due to their combinatorial branching factors the limited amount of time available to choose actions. As the community grows and many RTS game competitions are held, much work has been done in the direction of integrating hand-authored scripted bots into tree search algorithms, with the goal of making search tractable. In this paper, we survey a collection of representative algorithms that integrate scripts into search or planning algorithms. Then we compare them empirically in the {$\mathrm{\mu}$}RTS environment and examine the trade-offs for designing such algorithms. We also discuss the potential future work in this direction of research and connections to other types of algorithms.},
+  abstract = {Real-time strategy games are a challenging problem from an AI point of view. Specially, they are particularly hard for tree search algorithms due to their combinatorial branching factors the limited amount of time available to choose actions. As the community grows and many RTS game competitions are held, much work has been done in the direction of integrating hand-authored scripted bots into tree search algorithms, with the goal of making search tractable. In this paper, we survey a collection of representative algorithms that integrate scripts into search or planning algorithms. Then we compare them empirically in the \textmu{}RTS environment and examine the trade-offs for designing such algorithms. We also discuss the potential future work in this direction of research and connections to other types of algorithms.},
   file = {C\:\\Users\\aesou\\Google Drive\\Doctorate\\Articles\\Yang and Ontañón - 2020 - Integrating Search and Scripts for Real-Time Strat.pdf},
   language = {en}
 }
