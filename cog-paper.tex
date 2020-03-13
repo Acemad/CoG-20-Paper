@@ -151,14 +151,25 @@ Barracks & & & & & $\bullet$ & $\bullet$ \\
 \end{tabular}
 \end{table}
 
-A player-action $p \in A$, issued to $n$ units at a given game cycle, can be regarded as a tuple, where $p = (a_1, a_2, \dots, a_n)$, and each component $a_i$ represents a unit-action issued by the player, to the same-indexed unit. Assuming that each unit is assigned a valid and legal unit-action. Given the average number of unit-actions available to each unit, $m$, the number of all possible player-actions, or the branching factor, $b$, can be estimated as $b = m^n$. We seek to lower $b$, by finding ways to decrease $m$ without any negative impact on the playing strength. 
+A player-action $p \in A$, issued to $n$ units at a given game cycle, can be regarded as a tuple, where $p = (a_1, a_2, \dots, a_n)$, and each component $a_i$ represents a unit-action issued by the player, to the same-indexed unit. Assuming that each unit is assigned a valid and legal unit-action and given the average number of unit-actions available to each unit, $m$, the number of all possible player-actions, or the branching factor, $b$, can be estimated as $b = m^n$. We seek to lower $b$, by finding ways to decrease $m$ without negatively impacting the playing strength.
 
 \subsection{Inactive Player-Actions}
 
-We define an Inactive Player-Action (IPA) as a player-action having at least one Wait (idle, no-op, or NONE) unit-action as a component. Wait unit-action type happen to be a common unit-action among all types of units.
+We define an Inactive Player-Action (IPA) as a player-action having at least one Wait (inactive, idle, no-op) unit-action as a component. Being the most prevalent, non-critical unit-action, Wait unit-actions make for a good pruning target. A Wait unit-action is always an available option to any unit, regardless the situation, hence, it strongly participates in the inflation of the search space. Nevertheless, Wait unit-actions can be useful for a unit in the following situations :
+\begin{itemize}
+\item Trapped unit : no active unit-action possible. i.e. the unit is caught in a situation where all possible unit-actions are illegal. Waiting for a number of cycles is the only option to choose in hopes the situation resolves itself.
+\item Anticipating unit : the unit anticipates for a chance to execute a high value unit-action. Here, the unit excepts a sub-optimal action by an opponent unit and chooses to Wait in anticipation for it in order to later execute an advantageous action. This behaviour is frequently observed in tactical skirmishes.
+\end{itemize}
+Although mildly useful, Wait unit-actions can also have a devastating effect on playing strength if improperly chosen. According to our observation, it is not unlikely for a search-based agent to assign a Wait unit-action to a unit in a situation where better options exist. In such cases, doing nothing is the worst decision possible. We identify three situations where Waiting cannot be a sound decision :
+\begin{itemize}
+\item Waiting in front of opportunity : Here, the unit is able to seize an immediate opportunity, such as Harvest resources, Return harvested resources, or safely remove an opponent unit, instead, the unit is assigned Wait.
+\item Waiting in face of danger : The unit is facing an immediate danger, and holds the necessary options to avoid it, but instead, it is assigned a Wait unit-action.
+\item Waiting randomly : Instead of all the safe options available, the unit is assigned a Wait unit-action.
+\end{itemize}
+
 
 \subsection{Pruning Techniques}
-
+% not possible to identify 
 \section{Experimentation Results}
 
 \subsection{Parameter Tuning}
