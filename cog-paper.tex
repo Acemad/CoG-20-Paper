@@ -155,21 +155,31 @@ A player-action $p \in A$, issued to $n$ units at a given game cycle, can be reg
 
 \subsection{Inactive Player-Actions}
 
-We define an Inactive Player-Action (IPA) as a player-action having at least one Wait (inactive, idle, no-op) unit-action as a component. Being the most prevalent, non-critical unit-action, Wait unit-actions make for a good pruning target. A Wait unit-action is always an available option to any unit, regardless the situation, hence, it strongly participates in the inflation of the search space. Nevertheless, Wait unit-actions can be useful for a unit in the following situations :
+We define an Inactive Player-Action (IPA) as a player-action having at least one Wait (inactive, idle, no-op) unit-action as a component. Being the most prevalent, non-critical unit-action, Wait unit-actions make for a good pruning target. A Wait unit-action is always an available option to any unit, regardless the situation, hence, it strongly participates in the inflation of the search space. Nevertheless, Wait unit-actions can be advantageous for a unit, usually in the following situations :
+
 \begin{itemize}
-\item Trapped unit : no active unit-action possible. i.e. the unit is caught in a situation where all possible unit-actions are illegal. Waiting for a number of cycles is the only option to choose in hopes the situation resolves itself.
-\item Anticipating unit : the unit anticipates for a chance to execute a high value unit-action. Here, the unit excepts a sub-optimal action by an opponent unit and chooses to Wait in anticipation for it in order to later execute an advantageous action. This behaviour is frequently observed in tactical skirmishes.
-\end{itemize}
-Although mildly useful, Wait unit-actions can also have a devastating effect on playing strength if improperly chosen. According to our observation, it is not unlikely for a search-based agent to assign a Wait unit-action to a unit in a situation where better options exist. In such cases, doing nothing is the worst decision possible. We identify three situations where Waiting cannot be a sound decision :
-\begin{itemize}
-\item Waiting in front of opportunity : Here, the unit is able to seize an immediate opportunity, such as Harvest resources, Return harvested resources, or safely remove an opponent unit, instead, the unit is assigned Wait.
-\item Waiting in face of danger : The unit is facing an immediate danger, and holds the necessary options to avoid it, but instead, it is assigned a Wait unit-action.
-\item Waiting randomly : Instead of all the safe options available, the unit is assigned a Wait unit-action.
+\item \textit{Trapped unit :} No active unit-action possible. i.e. the unit is caught in a situation where all possible unit-actions are illegal. Waiting for a predefined duration is the only option to choose, in hopes the situation resolves itself.
+\item \textit{Tactical waiting :} The unit anticipates for a chance to execute a high-value unit-action. Here, the unit expects a sub-optimal action by an opponent unit (via lookahead), and chooses to Wait, in anticipation for it, so that it can execute its high-value action afterwards. This behaviour is frequently observed in tactical skirmishes.
 \end{itemize}
 
+Although mildly useful, Wait unit-actions can also have a devastating effect on playing strength, if improperly chosen. According to our observations, it is not unlikely for a search-based agent (MCTS or otherwise) to assign a Wait unit-action to a unit in a situation where better options exist. In such cases, doing nothing is the worst decision possible. We identify three disadvantageous situations, where Waiting cannot be a sound decision :
+
+\begin{itemize}
+\item \textit{Waiting in front of opportunity :} Here, the unit is able to seize an immediate opportunity, such as Harvest resources, Return harvested resources, or safely remove an opponent unit. Instead, the unit is assigned Wait.
+\item \textit{Waiting in face of danger :} The unit is facing an immediate danger, and holds the necessary options to avoid it, but instead, it is assigned a Wait unit-action.
+\item \textit{Waiting randomly :} Instead of all the safe options available, the unit is assigned a Wait unit-action.
+\end{itemize}
+
+The presence of one Wait unit-action in a player-action (thus, IPA) is enough to introduce a risk of encountering one of the disadvantageous situations, and the more Wait unit-actions in an IPA, the higher this risk gets. Thus, we believe that pruning all IPAs from the search space, while preserving some IPAs as a safety measure, to account for trapped units and tactical waiting, can be beneficial to MCTS. This way, exploration is steered away from a type of detrimental actions.
+
+Out of place, Wait unit-action assignments, can exhibit a similar effect to noise, since they could distract sampling-based search approaches away from more interesting options. 
 
 \subsection{Pruning Techniques}
-% not possible to identify 
+
+The radical pruning approach would be to remove all IPAs from the search space, basically removing the Wait unit-action from the set of unit-actions of all unit types. Thus, diminishing $m$ by $1$, and obtaining a branching factor $b' = (m - 1)^n$, which constitutes a considerable decline from $b$. As an example, if we have $m=5$ unit-actions on average, in a given game state with $n=6$ units, then $b \approx 1.56\times10^4$ and $b' \approx 4\times10^3$. The total number of IPAs removed would be : $v = b - b' = 1.16\times10^4$. However, our intention is to keep a portion of IPAs, to deal with trapped units and tactical waiting, and remove the rest.
+
+Detecting trapped units is a straightforward process (allow Wait unit-action if no other action is possible). But, dealing with tactical waiting can be elusive, since there is no way to differentiate between waiting as a tactical choice, and waiting as a bad decision, until witnessing the consequences. Random playouts do not offer an accurate answer about the quality of the decision. Consequently, we propose four pruning approaches that detect IPAs and decide whether to allow or prune them following a parameter.
+
 \section{Experimentation Results}
 
 \subsection{Parameter Tuning}
