@@ -193,13 +193,6 @@ These pruning approaches can be easily implemented and adapted to any search alg
 
 \section{Experimentation and Results}
 
-To study the effect of pruning IPAs on MCTS, we chose to implement the four aforementioned techniques using UCT and NaïveMCTS, as the base search algorithms, and conduct experiments in \mRTS{}. It is true that UCT's performance suffers greatly in RTS scenarios, due to the combinatorial search space, nevertheless, we would like to see if pruning IPAs would alleviate this dimensionality burden. 
-
-
-\subsection{Parameter Analysis}
-
-% WIP
-
 \begin{figure*}[!h]
 \begin{center}
 	\includegraphics[width=0.8\textwidth]{figs/PT.pdf}
@@ -207,6 +200,14 @@ To study the effect of pruning IPAs on MCTS, we chose to implement the four afor
 	\label{PT}
 \end{center}
 \end{figure*}
+
+To study the effect of pruning IPAs on MCTS, we chose to implement the four aforementioned techniques using UCT and NaïveMCTS, as the base search algorithms, and conduct experiments in \mRTS{}. It is true that UCT's performance suffers greatly in RTS scenarios, due to the combinatorial search space, nevertheless, we wanted to see if pruning IPAs would alleviate this dimensionality burden, and result in a performance improvement. We first analysed the performance of RIP-F and RIP-R, with respect to the amount of IPAs allowed, the size of the map in use and the search algorithm. We then took the best performing pruning-approach and parameter combination in each map size, for each search algorithm and performed a round-robin tournament between them and a set of \mRTS{} built-in agents.
+
+\subsection{Pruning Analysis}
+
+% WIP
+
+
 
 \subsection{Best Pruning Approach}
 
