@@ -99,8 +99,6 @@ The goal of an RTS game-playing agent is to compute the optimal player-action $a
 
 The most visited decision is usually the one returned. Given enough computation budget and a proper exploration / exploitation equilibrium in the tree policy, MCTS is guaranteed to find the minimax solution, in the limits. The most popular MCTS implementation, UCT (Upper Confidence bounds for Trees), uses UCB1 formula as a tree policy, treating the selection phase as a multi-armed bandit (MAB) problem. Although remarkably successful in Go, UCT does not perform as well in RTS games, due to the rapid growth in the branching factor, with the increase in the unit count. NaïveMCTS was specifically designed to address the combinatorial search space in RTS games, by formulating the selection phase as a combinatorial MAB (CMAB). Additionally, NaïveMCTS employs a naïve sampling approach that relies on a naïve assumption considering the reward estimate of a player-action as the sum of the reward estimates of the underlying unit-actions. In our experiments, we used both UCT and NaïveMCTS as the base search algorithms for our pruning approach.
 
-% Writing ...
-
 \section{Related Works}
 
 \subsection{Search Space Reduction}
@@ -195,17 +193,28 @@ These pruning approaches can be easily implemented and adapted to any search alg
 
 \begin{figure*}[!h]
 \begin{center}
-	\includegraphics[width=0.8\textwidth]{figs/PT.pdf}
+	\includegraphics[width=1\textwidth]{figs/PT-h.pdf}
 	\caption{UCT-RIP-F performance against UCT}
-	\label{PT}
+	\label{PruningAnalysis}
 \end{center}
 \end{figure*}
 
-To study the effect of pruning IPAs on MCTS, we chose to implement the four aforementioned techniques using UCT and NaïveMCTS, as the base search algorithms, and conduct experiments in \mRTS{}. It is true that UCT's performance suffers greatly in RTS scenarios, due to the combinatorial search space, nevertheless, we wanted to see if pruning IPAs would alleviate this dimensionality burden, and result in a performance improvement. We first analysed the performance of RIP-F and RIP-R, with respect to the amount of IPAs allowed, the size of the map in use and the search algorithm. We then took the best performing pruning-approach and parameter combination in each map size, for each search algorithm and performed a round-robin tournament between them and a set of \mRTS{} built-in agents.
+%\begin{figure*}[!h]
+%\begin{center}
+%	\includegraphics[width=1\textwidth]{figs/WLR.pdf}
+%	\caption{Win / Loss / Draw Ratios}
+%	\label{WLR}
+%\end{center}
+%\end{figure*}
+
+To study the effect of pruning IPAs on MCTS, we implemented the four aforementioned pruning techniques in UCT and NaïveMCTS, and conducted various experiments in \mRTS{}. It is true that UCT's performance suffers greatly in RTS scenarios, due to UCB1's limitations in combinatorial search spaces \cite{ontanon_combinatorial_2013}, nevertheless, we wanted to see if pruning IPAs would alleviate the dimensionality burden, and result in a performance improvement.
+
+We first analysed the performance of RIP-F and RIP-R, with respect to the amount of IPAs allowed, the size of the map in use and the search algorithm. We then took the best performing pruning-approaches for each algorithm and map size, and performed a round-robin tournament with other \mRTS{} agents. Afterwards, we performed a scalability test in larger maps. The experiments were carried out on two PCs with an Intel Core i5 and i7 CPUs, clocked at 3.1Ghz and 3.4Ghz respectively, using the latest version of \mRTS{}, at the time of writing.
 
 \subsection{Pruning Analysis}
 
-% WIP
+
+
 
 
 
