@@ -79,7 +79,7 @@ Holistic, search-based approaches such as MCTS (Monte Carlo Tree Search), enjoye
 
 In this paper, we propose an approach to enhance the performance and scalability of search-based techniques, particularly MCTS-based, by pruning unnecessary and detrimental player-actions, from the decision space of an RTS game. We inspect the low-level structure of the search space and identify detrimental player-actions, and then apply a number of hard-pruning approaches to remove those player-actions during search. The desired outcomes of such approach is the reduction of the branching factor, and the exploration of more promising player-actions. Our pruning approach focuses on a class of player-actions we identify as Inactive Player-Actions, and is applied for both UCT and NaïveMCTS. The experimentation results, using \mRTS{}, show an important performance gain, relative to the size of the map in use.
 
-The rest of this paper is organized as follows : Section \ref{sec:background} reviews some background information about RTS games, \mRTS{} and MCTS. Section \ref{sec:related_works} presents some works related to our approach and Section \ref{sec:proposed_method} describes Inactive Player-Actions and the move pruning approaches implemented. Experimental results are presented and discussed in Section \ref{sec:experiments}, and Section \ref{sec:conclusions} concludes the paper with some conclusions and future perspectives.
+The rest of this paper is organized as follows : Section \ref{sec:background} reviews some background information about RTS games, \mRTS{} and MCTS. Section \ref{sec:state_of_the_art} presents some works related to our approach and Section \ref{sec:proposed_method} describes Inactive Player-Actions and the move pruning approaches implemented. Experimental results are presented and discussed in Section \ref{sec:experiments}, and Section \ref{sec:conclusions} concludes the paper with some conclusions and future perspectives.
 % Antonio - You must use references to sections and subsections. Use "label" command to set the name and "ref" command to reference it. ;)
 %           Please, check it out along the text for missing references non properly done.
 
@@ -139,17 +139,15 @@ The goal of an RTS game-playing agent is to compute the optimal player-action $a
 
 The most visited decision is usually the one returned. Given enough computation budget and a proper exploration / exploitation equilibrium in the tree policy, MCTS is guaranteed to find the minimax solution, in the limits. The most popular MCTS implementation, UCT (Upper Confidence bounds for Trees), uses UCB1 formula as a tree policy, treating the selection phase as a multi-armed bandit (MAB) problem. Although remarkably successful in Go, UCT does not perform as well in RTS games, due to the rapid growth in the branching factor, with the increase in the unit count. NaïveMCTS was specifically designed to address the combinatorial search space in RTS games, by formulating the selection phase as a combinatorial MAB (CMAB). Additionally, NaïveMCTS employs a naïve sampling approach that relies on a naïve assumption considering the reward estimate of a player-action as the sum of the reward estimates of the underlying unit-actions. In our experiments, we used both UCT and NaïveMCTS as the base search algorithms for our pruning approach.
 
-% Writing ...
-
 % -------------------------------------------- RELATED WORKS ------------------------------------------
 
 % Antonio - I'd prefer "State of the Art" for this section. ;)
 %           Anyway, it doesn't matter if it is named "Related Works", but I think we shouldn't separate it into subsecions
 
-\section{Related Works}
-\label{sec:related_works}
+\section{State of the Art}
+\label{sec:state_of_the_art}
 
-\subsection{Search Space Reduction}
+%\subsection{Search Space Reduction}
 
 Dealing with the enormous RTS decision space in the context of MCTS is an open problem, continuously receiving contributions. By treating the selection phase as a CMAB, NaïveMCTS effectively adapts MCTS to combinatorial search spaces, nevertheless, the decision space remains the same, and the algorithm still suffers from the high dimensionality. Downsizing the search space's dimensionality is usually done through action abstraction or machine learning.
 
@@ -157,7 +155,7 @@ Abstracting the search space, by means of expert-authored scripts, is an effecti
 
 Techniques that rely on machine learning try to learn a tree policy, from expert traces, that nudges the selection phase towards more promising expert actions. AlphaGo \cite{silver_mastering_2016} employs a CNN-based policy network, learned from a large dataset of expert Go replays. Ontañón introduced InformedMCTS in \mRTS{}, which makes use of a learned Bayesian model, to inform the selection phase of MCTS. Yang and Ontañón \cite{yang_extracting_2019} later demonstrated the effectiveness of C4.5 classifier for such tasks, due to its speed and accuracy.
 
-\subsection{Move Pruning}
+%\subsection{Move Pruning}
 
 If we adjust our perspective, the aforementioned approaches can all be regarded as move pruning approaches \cite{yang_integrating_2020}. By focusing on a set of promising, expert-based player-actions, theses approaches effectively prune the search space of all the remaining player-actions, significantly reducing the branching factor. Regardless, such a practice can also be unsafe and prone to exploitation, due to the coarser player-actions considered, resulting in a loss of tactical performance. To address this issue, several approaches combining low- and high-level search have emerged, such as \cite{barriga_combining_2017}, \cite{neufeld_hybrid_2019} and \cite{moraes_action_2018}.
 
@@ -248,12 +246,8 @@ The intuition behind dynamic approaches is to equalize the chances of performing
 
 These pruning approaches can be easily implemented and adapted to any search algorithm. They operate by capturing player-actions while sampling, and checking whether an IPA was captured or not. In case the IPA does not involve a trapped unit, a parameter check decides whether to prune the IPA or allow it. If pruned, the search algorithm needs to sample another action, while keeping track of the pruned IPAs. In the next section, we report the experimentations conducted and the results obtained by enhancing UCT and NaïveMCTS, with these pruning approaches, in the context of RTS games.
 
-
-% --------------------------------------- EXPERIMENTATION AND RESULTS ------------------------------------------
-
-
-\section{Experimentation and Results}
-\label{sec:experiments}
+% Pruning Analysis results, moved in this section to appear in the same 
+% page as the relevant section.
 
 \begin{figure*}[!h]
 \begin{center}
@@ -262,6 +256,12 @@ These pruning approaches can be easily implemented and adapted to any search alg
 	\label{PruningAnalysis}
 \end{center}
 \end{figure*}
+
+% --------------------------------------- EXPERIMENTATION AND RESULTS ------------------------------------------
+
+
+\section{Experimentation and Results}
+\label{sec:experiments}
 
 %\begin{figure*}[!h]
 %\begin{center}
@@ -286,7 +286,6 @@ To analyse the influence of IPA pruning on the performance of MCTS, we ran a ser
 \item $R = \{0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1\}$
 \end{itemize}
 
-% ===========================================
 The total number of matches played for a single MCTS agent amounts to $(500\times\vert F\vert\times3) + (500\times\vert R\vert\times3)$, yielding $63000$ match for both UCT and NaïveMCTS. In this, and every subsequent experiment, we used the default UCT and NaïveMCTS parameters, as defined in \mRTS{} codebase, with $100ms$ per frame allocated to every agent as the computation budget. The experiments results are expressed in Figure \ref{PruningAnalysis}'s plots.
 
 Overall, we can see that in all cases, IPA pruning is responsible for a performance gain of variable rates, depending on the amount of IPAs allowed, and the branching factor represented by the map size. In UCT-RIP-F, allowing a small number of IPAs ($0 < k \leq 5$) significantly increases UCT's performance, however, the more IPAs are allowed, the more performance decreases until pruning losses its effect ($k \geq 1000$). In UCT-RIP-R, the same trend is witnessed. Allowing only a small percent of IPAs ($0.1 \leq p \leq 0.3$) does increase UCT's performance, but the more we increase $p$ the more performance drops. We note that UCT-RIP-R($p=1$) and UCT-RIP-F($k \geq 1000$) are equivalent to non-pruning UCT. 
@@ -295,7 +294,9 @@ The highest performance gain was recorded in the small $8\times8$ map, represent
 
 From the perspective of NaïveMCTS, IPA pruning exhibits the same effect as in UCT, with two key differences. First, in the smallest $8\times8$ map, NaïveMCTS performs optimally when more IPAs are allowed, that is, when $5 \leq k \leq 50$ in NMCTS-RIP-F, and when $p=0.9$ in NMCTS-RIP-R. This is probably because naïve sampling already handles small scenarios well, and can gain an advantage if a portion of IPAs is kept, to explore tactical waiting situations. In larger maps, pruning all IPAs ($k = 0$, or $p = 0$) yields the highest performance gain. Here, due to the bigger branching factor, pruning IPAs significantly contributes to the better utilization of the computation budget.
 
-The second, most interesting difference with respect to UCT, is the scalability of performance relative to the increase in the branching factor. As opposed to UCT, NaïveMCTS enhanced with IPA pruning, delivers its best performance in the largest $16\times16$ map, followed by the 
+The second, most interesting difference with respect to UCT, is the scalability of performance relative to the increase in the branching factor. As opposed to UCT, NaïveMCTS enhanced with IPA pruning, delivers its best performance in the largest $16\times16$ map.
+
+% ===========================================
 
 \subsection{Best Pruning Approach}
 
