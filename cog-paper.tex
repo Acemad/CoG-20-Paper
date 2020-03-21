@@ -179,13 +179,13 @@ The radical pruning approach would be to remove all IPAs from the search space, 
 Detecting trapped units is a straightforward process. But, dealing with tactical waiting can be elusive, since there is no simple way to differentiate between waiting as a tactical choice, and waiting as a bad decision, until witnessing the consequences. Random playouts do not offer an accurate answer about the quality of the decision. Consequently, we propose four pruning approaches that detect IPAs and decide whether to allow or prune them according to a given parameter. These approaches preserve all IPAs involving trapped units, and allow a predetermined amount of random IPAs, in hopes of preserving tactical waiting situations. The remaining IPAs are all considered disadvantageous and are systematically hard-pruned (no re-insertion). We describe our pruning approaches as follows :
 
 \begin{itemize}
-\item \textbf{Random Inactivity Pruning - Fixed (RIP-F):} Allow a fixed amount, $n$, of IPAs.
-\item \textbf{Random Inactivity Pruning - Relative (RIP-R):} Allow a percentage of IPAs, $p$, relative to the total number of removable IPAs.
-\item \textbf{Dynamic RIP-F (DRIP-F):} Allow $n_1$ IPAs when the units count outnumber the opponent's units count, and $n_2$ IPAs in the opposite situation.
-\item \textbf{Dynamic RIP-R (DRIP-R):} Allow $p_1$ percent of IPAs when the units count outnumber the opponent's units count, and $p_2$ percent of IPAs in the opposite situation.
+\item \textbf{Random Inactivity Pruning - Fixed (RIP-F($k$)):} Allow a fixed amount, $k$, of IPAs.
+\item \textbf{Random Inactivity Pruning - Relative (RIP-R($p$)):} Allow a percentage of IPAs, $p$, relative to the total number of removable IPAs.
+\item \textbf{Dynamic RIP-F (DRIP-F($k_1$, $k_2$)):} Allow $k_1$ IPAs when the units count outnumber the opponent's units count, and $k_2$ IPAs in the opposite situation.
+\item \textbf{Dynamic RIP-R (DRIP-R($p_1$, $p_2$)):} Allow $p_1$ percent of IPAs when the units count outnumber the opponent's units count, and $p_2$ percent of IPAs in the opposite situation.
 \end{itemize}
 
-The intuition behind dynamic approaches is to equalize the chances of performing tactical waiting, when the agent does not hold a numerical advantage. This is done by allowing more IPAs when the agent is outnumbered ($n_2 > n_1$ or, $p_2 > p_1$).
+The intuition behind dynamic approaches is to equalize the chances of performing tactical waiting, when the agent does not hold a numerical advantage. This is done by allowing more IPAs when the agent is outnumbered ($k_2 > k_1$ or, $p_2 > p_1$).
 
 These pruning approaches can be easily implemented and adapted to any search algorithm. They operate by capturing player-actions while sampling, and checking whether an IPA was captured or not. In case the IPA does not involve a trapped unit, a parameter check decides whether to prune the IPA or allow it. If pruned, the search algorithm needs to sample another action, while keeping track of the pruned IPAs. In the next section, we report the experimentations conducted and the results obtained by enhancing UCT and NaïveMCTS, with these pruning approaches, in the context of RTS games.
 
@@ -194,7 +194,7 @@ These pruning approaches can be easily implemented and adapted to any search alg
 \begin{figure*}[!h]
 \begin{center}
 	\includegraphics[width=1\textwidth]{figs/PT-h.pdf}
-	\caption{UCT-RIP-F performance against UCT}
+	\caption{Results of the pruning analysis experiments. Each data point represents $500$ match between the basic MCTS agent and the one augmented with IPA pruning. In each plot, the vertical axis represents the score obtained by the IPA pruning MCTS agent, against the base MCTS agent. The score is calculated as such : $score = ((Wins + (Draws / 2)) / 500) \times 100$.}
 	\label{PruningAnalysis}
 \end{center}
 \end{figure*}
@@ -207,16 +207,28 @@ These pruning approaches can be easily implemented and adapted to any search alg
 %\end{center}
 %\end{figure*}
 
-To study the effect of pruning IPAs on MCTS, we implemented the four aforementioned pruning techniques in UCT and NaïveMCTS, and conducted various experiments in \mRTS{}. It is true that UCT's performance suffers greatly in RTS scenarios, due to UCB1's limitations in combinatorial search spaces \cite{ontanon_combinatorial_2013}, nevertheless, we wanted to see if pruning IPAs would alleviate the dimensionality burden, and result in a performance improvement.
+To study the effect of pruning IPAs on MCTS, we implemented the four aforementioned pruning techniques in UCT and NaïveMCTS, and conducted various experiments in \mRTS{}. It is true that UCT's performance suffers greatly in RTS scenarios, due to UCB1's limitations in combinatorial search spaces \cite{ontanon_combinatorial_2013}, nevertheless, we wanted to see if pruning IPAs would alleviate the dimensionality burden, and result in a performance improvement. Integrating IPA pruning into UCT and NaïveMCTS generated new agents that we refer to by suffixing the acronym of the technique to the that of the original search approach. For instance the agent using RIP-R in UCT or NaïveMCTS is noted as UCT-RIP-R($p$) or NMCTS-RIP-R($p$).
 
-We first analysed the performance of RIP-F and RIP-R, with respect to the amount of IPAs allowed, the size of the map in use and the search algorithm. We then took the best performing pruning-approaches for each algorithm and map size, and performed a round-robin tournament with other \mRTS{} agents. Afterwards, we performed a scalability test in larger maps. The experiments were carried out on two PCs with an Intel Core i5 and i7 CPUs, clocked at 3.1Ghz and 3.4Ghz respectively, using the latest version of \mRTS{}, at the time of writing.
+We first analysed the performance of RIP-F and RIP-R, with respect to the amount of IPAs allowed, the size of the map in use, and the MCTS algorithm. We then took the best performing pruning approaches for each MCTS algorithm and map size, and performed a round-robin tournament with other \mRTS{} agents. Afterwards, we performed a scalability test in larger maps. The experiments were carried out on two PCs with an Intel Core i5 and i7 CPUs, clocked at 3.1Ghz and 3.4Ghz respectively, and using the latest version of \mRTS{} at the time of writing.
 
 \subsection{Pruning Analysis}
 
+To analyse the influence of IPA pruning on the performance of MCTS, we ran a series of experiments involving each MCTS agent and non-dynamic IPA pruning approach. We defined two distinct sets, $F$ and $R$, composed of a selection of values that can be taken by the parameters of RIP-F($k$) and RIP-R($p$), respectively. Next, we ran $500$ match (switching sides after $250$ match) between the MCTS agent, enhanced with an IPA pruning approach, and the non-pruning version of the same MCTS agent, for each respective value in $F$ or $R$. The process was repeated for each \textit{basesWorkers} map of size $8\times8$, $12\times12$ and $16\times16$. We define $F$ and $R$ as follows:
 
+\begin{itemize}
+\item $F = \{0, 1, 5, 10, 50, 100, 500, 1000, 5000, 10000\}$
+\item $R = \{0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1\}$
+\end{itemize}
 
+The total number of matches played for a single MCTS agent amounts to $(500\times\vert F\vert\times3) + (500\times\vert R\vert\times3)$, yielding $63000$ match for both UCT and NaïveMCTS. In this, and every subsequent experiment, we used the default UCT and NaïveMCTS parameters, as defined in \mRTS{} codebase, with $100ms$ per frame allocated to every agent as the computation budget. The experiments results are expressed in Figure \ref{PruningAnalysis}'s plots.
 
+Overall, we can see that in all cases, IPA pruning is responsible for a performance gain of variable rates, depending on the amount of IPAs allowed, and the branching factor represented by the map size. In UCT-RIP-F, allowing a small number of IPAs ($0 < k \leq 5$) significantly increases UCT's performance, however, the more IPAs are allowed, the more performance decreases until pruning losses its effect ($k \geq 1000$). In UCT-RIP-R, the same trend is witnessed. Allowing only a small percent of IPAs ($0.1 \leq p \leq 0.3$) does increase UCT's performance, but the more we increase $p$ the more performance drops. We note that UCT-RIP-R($p=1$) and UCT-RIP-F($k \geq 1000$) are equivalent to non-pruning UCT. 
 
+The highest performance gain was recorded in the small $8\times8$ map, representing the lowest branching factor, and the lowest gain was recorded in the larger $16\times16$ map. This is expected from UCT, since its sampling strategy (UCB1) is highly prone to combinatorial search spaces, and pruning IPAs alone does not seem to be enough to efficiently scale its performance. Pruning all IPAs ($k = 0$ or $p = 0$) causes an adverse effect on UCT's performance in larger maps, due to the random sampling of player-actions, which could keep re-sampling for non-IPAs throughout the entire computation budget. This effect is offset in the $16\times16$ map by the large number of draws.
+
+From the perspective of NaïveMCTS, IPA pruning exhibits the same effect as in UCT, with two key differences. First, in the smallest $8\times8$ map, NaïveMCTS performs optimally when more IPAs are allowed, that is, when $5 \leq k \leq 50$ in NMCTS-RIP-F, and when $p=0.9$ in NMCTS-RIP-R. This is probably because naïve sampling already handles small scenarios well, and can gain an advantage if a portion of IPAs is kept, to explore tactical waiting situations. In larger maps, pruning all IPAs ($k = 0$, or $p = 0$) yields the highest performance gain. Here, due to the bigger branching factor, pruning IPAs significantly contributes to the better utilization of the computation budget.
+
+The second, most interesting difference with respect to UCT, is the scalability of performance relative to the increase in the branching factor. As opposed to UCT, NaïveMCTS enhanced with IPA pruning, delivers its best performance in the largest $16\times16$ map, followed by the 
 
 \subsection{Best Pruning Approach}
 
