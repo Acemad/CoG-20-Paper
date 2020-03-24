@@ -27,7 +27,7 @@
 \textit{University of Mascara}\\
 Mascara, Algeria \\
 abdessamed.ouessai@univ-mascara.dz\\
-ORCID: ***}
+ORCID: 0000-0002-1305-8602}
 \and
 \IEEEauthorblockN{Mohammed Salem}
 \IEEEauthorblockA{\textit{Dept. Computer Sciences} \\
@@ -344,12 +344,7 @@ In addition to the following IPA pruning agents:
 
 We also included unmodified UCT, for the sake of comparison. The global tournament results are reported in Table \ref{tournamentResults}, and the results by map-size are shown in Figure \ref{TournamentResultsAllMaps}. The score is calculated similarly to the previous experiment, by summing the win count and half of the draw count.
 
-
-
-
-
-
-\begin{table}[t]
+\begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
 \caption{Global Tournament Results (Row agent score against column agent)}
 \label{tournamentResults}
@@ -367,11 +362,10 @@ POWorkerRush & $\bm{60.6}$ & $\bm{72.3}$ & $\bm{69.8}$ & $\bm{89.5}$ & $\bm{100}
 POLightRush  & $\bm{57.8}$ & $\bm{65.3}$ & $\bm{66.3}$ & $\bm{66.6}$ & $\bm{98.3}$ & $0$ & - & $30.8$ & $\bm{55}$  \\
 MixedBot     & $\bm{74.8}$ & $\bm{86.8}$ & $\bm{89.6}$ & $\bm{99}$ & $\bm{100}$ & $30.5$ & $\bm{82}$ & - & $\bm{80.4}$ \\
 \hline
-\end{tabular}
-}
+\end{tabular}}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[!t]
 \begin{center}
 	\includegraphics[width=1\columnwidth]{figs/TR.pdf}
 	\caption{Tournament results in each of the three map sizes.}
@@ -379,9 +373,15 @@ MixedBot     & $\bm{74.8}$ & $\bm{86.8}$ & $\bm{89.6}$ & $\bm{99}$ & $\bm{100}$ 
 \end{center}
 \end{figure}
 
+The results demonstrate how IPA pruning positively affects the playing strength of UCT and NaïveMCTS. Looking at the average scores, NMCTS-RIP achieved a $12.8$ points increase with respect to NaïveMCTS, and UCT-RIP achieved a near $20$ points increase relative to UCT. IPA pruning in UCT (UCT-RIP) managed to shrink the performance gap between UCT and NaïveMCTS from $30$ points to $10.1$ points, noticeable in Figure \ref{TournamentResultsAllMaps}, where UCT-RIP's performance closely matches that of NaïveMCTS in the $8\times8$ map. Moreover, NMCTS-RIP was able to score a higher average than POLightRush, one of the strongest scripts usually outranking NaïveMCTS. Against each individual agent, both NMCTS-RIP and UCT-RIP obtained significantly higher scores than those of NaïveMCTS and UCT respectively.
+
+As expected, scripts and script-based approaches exhibit a superior performance versus low-level MCTS search approaches, due to the integration of expert knowledge in the form of hard-coded scripts. Expert knowledge inherently steers search away from detrimental player-actions, by focusing only on a limited set of player-actions deemed more rewarding, at the cost of losing decision granularity and becoming prone to possible exploitation. By directly pruning detrimental player-actions, we hope to focus search on a wider range of interesting player-actions while keeping a higher degree of decision granularity. The fact that NMCTS-RIP could achieve a higher average score than MixedBot in the $12\times12$ map signifies that our approach could be promising.
+
 % ===========================================
 
-\subsection{Branching Factor \& Scalability Analysis}
+\subsection{Scalability \& Branching Factor Analysis}
+
+
 
 % --------------------------------------- CONCLUSIONS AND FUTURE WORK ------------------------------------------
 
