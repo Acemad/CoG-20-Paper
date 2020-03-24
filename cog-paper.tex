@@ -7,6 +7,8 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{rotating}
+\usepackage{bm}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -273,7 +275,7 @@ These pruning approaches can be easily implemented and adapted to any search alg
 
 To study the effect of pruning IPAs on MCTS, we implemented the four aforementioned pruning techniques in UCT and NaïveMCTS, and conducted various experiments in \mRTS{}. It is true that UCT's performance suffers greatly in RTS scenarios, due to UCB1's limitations in combinatorial search spaces \cite{ontanon_combinatorial_2013}, nevertheless, we wanted to see if pruning IPAs would alleviate the dimensionality burden, and result in a performance improvement. Integrating IPA pruning into UCT and NaïveMCTS generated new agents that we refer to by suffixing the acronym of the technique to the that of the original search approach. For instance the agent using RIP-R in UCT or NaïveMCTS is noted as UCT-RIP-R($p$) or NMCTS-RIP-R($p$).
 
-We first analysed the performance of RIP-F and RIP-R, with respect to the amount of IPAs allowed, the size of the map in use, and the MCTS algorithm. We then took the best performing pruning approaches for each MCTS algorithm and map size, and performed a round-robin tournament with other \mRTS{} agents. Afterwards, we performed a scalability test in larger maps. The experiments were carried out on two PCs with an Intel Core i5 and i7 CPUs, clocked at 3.1Ghz and 3.4Ghz respectively, and using the latest version of \mRTS{} at the time of writing.
+We first analysed the performance of RIP-F and RIP-R, with respect to the amount of IPAs allowed, the size of the map in use, and the MCTS algorithm. We then took the best performing pruning approaches for each MCTS algorithm and map size, and performed a round-robin tournament with other \mRTS{} agents. Afterwards, we performed a scalability test in larger maps. The experiments were carried out on two PCs with an Intel Core i5 and i7 CPUs, clocked at 3.1Ghz and 3.4Ghz respectively, using the latest version of \mRTS{} at the time of writing.
 
 % ===========================================
 
@@ -286,25 +288,100 @@ To analyse the influence of IPA pruning on the performance of MCTS, we ran a ser
 \item $R = \{0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1\}$
 \end{itemize}
 
-The total number of matches played for a single MCTS agent amounts to $(500\times\vert F\vert\times3) + (500\times\vert R\vert\times3)$, yielding $63000$ match for both UCT and NaïveMCTS. In this, and every subsequent experiment, we used the default UCT and NaïveMCTS parameters, as defined in \mRTS{} codebase, with $100ms$ per frame allocated to every agent as the computation budget. The experiments results are expressed in Figure \ref{PruningAnalysis}'s plots.
+The total number of matches played for a single MCTS agent amounts to $(500\times\vert F\vert\times3) + (500\times\vert R\vert\times3)$, yielding $63000$ match for both UCT and NaïveMCTS. In this, and every subsequent experiment, we used the default UCT and NaïveMCTS parameters, as defined in \mRTS{} codebase, with $100ms$ per frame allocated to each agent as a computation budget. The experiments results are expressed in Figure \ref{PruningAnalysis}'s plots.
 
-Overall, we can see that in all cases, IPA pruning is responsible for a performance gain of variable rates, depending on the amount of IPAs allowed, and the branching factor represented by the map size. In UCT-RIP-F, allowing a small number of IPAs ($0 < k \leq 5$) significantly increases UCT's performance, however, the more IPAs are allowed, the more performance decreases until pruning losses its effect ($k \geq 1000$). In UCT-RIP-R, the same trend is witnessed. Allowing only a small percent of IPAs ($0.1 \leq p \leq 0.3$) does increase UCT's performance, but the more we increase $p$ the more performance drops. We note that UCT-RIP-R($p=1$) and UCT-RIP-F($k \geq 1000$) are equivalent to non-pruning UCT. 
+Overall, we can see that in all cases, IPA pruning is responsible for a performance gain of variable rates, depending on the amount of IPAs allowed, and the branching factor, represented by the map size. In UCT-RIP-F, allowing a small number of IPAs ($0 < k \leq 5$) significantly increases UCT's performance, however, the more IPAs are allowed, the more performance decreases until pruning losses its effect ($k \geq 1000$). In UCT-RIP-R, the same trend is witnessed. Allowing only a small percent of IPAs ($0.1 \leq p \leq 0.3$) does increase UCT's performance, but the more we increase $p$ the more performance drops. We note that UCT-RIP-R($p=1$) and UCT-RIP-F($k \geq 1000$) are equivalent to non-pruning UCT. 
 
 The highest performance gain was recorded in the small $8\times8$ map, representing the lowest branching factor, and the lowest gain was recorded in the larger $16\times16$ map. This is expected from UCT, since its sampling strategy (UCB1) is highly prone to combinatorial search spaces, and pruning IPAs alone does not seem to be enough to efficiently scale its performance. Pruning all IPAs ($k = 0$ or $p = 0$) causes an adverse effect on UCT's performance in larger maps, due to the random sampling of player-actions, which could keep re-sampling for non-IPAs throughout the entire computation budget. This effect is offset in the $16\times16$ map by the large number of draws.
 
-From the perspective of NaïveMCTS, IPA pruning exhibits the same effect as in UCT, with two key differences. First, in the smallest $8\times8$ map, NaïveMCTS performs optimally when more IPAs are allowed, that is, when $5 \leq k \leq 50$ in NMCTS-RIP-F, and when $p=0.9$ in NMCTS-RIP-R. This is probably because naïve sampling already handles small scenarios well, and can gain an advantage if a portion of IPAs is kept, to explore tactical waiting situations. In larger maps, pruning all IPAs ($k = 0$, or $p = 0$) yields the highest performance gain. Here, due to the bigger branching factor, pruning IPAs significantly contributes to the better utilization of the computation budget.
+From the perspective of NaïveMCTS, IPA pruning exhibits the same effect as in UCT, with two key differences. First, in the smallest $8\times8$ map, NaïveMCTS performs optimally when more IPAs are allowed, that is, when $5 \leq k \leq 50$ in NMCTS-RIP-F, and when $p=0.9$ in NMCTS-RIP-R. This is probably because naïve sampling already handles small scenarios well, and can gain an advantage if a portion of IPAs is kept, to explore tactical waiting situations. However, In larger maps, pruning all IPAs ($k = 0$, or $p = 0$) yields the highest performance gain. Here, due to the bigger branching factor, pruning IPAs significantly contributes to the better utilization of the computation budget.
 
-The second, most interesting difference with respect to UCT, is the scalability of performance relative to the increase in the branching factor. As opposed to UCT, NaïveMCTS enhanced with IPA pruning, delivers its best performance in the largest $16\times16$ map.
-
-% ===========================================
-
-\subsection{Best Pruning Approach}
+The second, most interesting difference with respect to UCT, is the scalability of performance relative to the increase in the branching factor. As opposed to UCT, NaïveMCTS enhanced with IPA pruning, delivers its best performance in the largest $16\times16$ map, followed by the medium-sized $12\times12$ map. In this case, having less IPAs in the search space allows naïve sampling to sample and explore more interesting player-actions, instead of wasting time on IPAs. Moreover, pruning IPAs also allows units to move more often, thus, better explore larger maps and discover interesting opportunities. We will see later how does this translates to even larger maps.
 
 % ===========================================
 
-\subsection{Tournament}
+\subsection{Best Pruning Approaches}
+
+Concerning dynamic pruning approaches (DRIP-F and DRIP-R), we have conducted a similar experiment using UCT, by fixing $k_1$ (or $p_1$) to the optimal $k$ (or $p$) value found, for each map size, and then performing $500$ match for each $k_2$ (or $p_2$) value taken from $F$ (or $R$). For NaïveMCTS, dynamic pruning did not bring any improvement over non-dynamic approaches, based on preliminary tests, thus, performing extensive experiments was not necessary. The best performing IPA pruning approaches for each map-size and MCTS algorithm are shown in Table \ref{bestApproaches}.
+
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.3}
+\caption{Best Performing Pruning Approaches}
+\label{bestApproaches}
+\centering
+\resizebox{1\columnwidth}{!}{
+\begin{tabular}{|c|c|c||c|c||c|c|}
+\cline{2-7}
+\multicolumn{1}{c|}{} & $8\times8$ & Score & $12\times12$ & Score & $16\times16$ & Score  \\ 
+\hline
+UCT & DRIP-F(1,0) & $82.2$ & DRIP-R(0.2,0.4) & $76.8$ & RIP-F(1) & $63.9$ \\
+NaïveMCTS & RIP-R(0.9) & $62.3$ & RIP-R(0) & $73.3$ & RIP-F(0) & $78.6$ \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+% ===========================================
+
+\subsection{Performance Analysis}
+
+To further assess the performance impact of IPA pruning on MCTS agents, we ran a round-robin tournament between 8 \mRTS{} agents, including two MCTS agents enhanced with IPA pruning. The tournament consists of 100 iteration, where in each iteration every agent plays a match against the other agents, resulting in $8\times7\times100 = 5600$ match in each of the maps used previously. The participating \mRTS{} agents include four baseline agents and one top performing agent from 2019's \mRTS{} competition, namely :
+
+\begin{itemize}
+\item \textit{NaïveMCTS:} The original unmodified NaïveMCTS.
+\item \textit{RandomBiased:} Selects actions randomly, with a bias towards attacking and harvesting.
+\item \textit{POWorkerRush:} Constantly produces workers and sends them to attack the opponent.
+\item \textit{POLightRush:} Same as the above, but using Light units.
+\item \textit{MixedBot:} Relies on two separate agents; Tiamat\cite{marino_evolving_2018} for strategic decisions and Capivara\cite{moraes_action_2018} for tactical decisions. Both based on search space abstraction through scripts.
+\end{itemize}
+
+In addition to the following IPA pruning agents:
+
+\begin{itemize}
+\item \textit{NMCTS-RIP:} NaïveMCTS integrating one of the IPA pruning approaches, as defined in Table \ref{bestApproaches}, for the relevant map size.
+\item \textit{UCT-RIP:} Same as the above, but based on UCT.
+\end{itemize}
+
+We also included unmodified UCT, for the sake of comparison. The global tournament results are reported in Table \ref{tournamentResults}, and the results by map-size are shown in Figure \ref{TournamentResultsAllMaps}. The score is calculated similarly to the previous experiment, by summing the win count and half of the draw count.
 
 
+
+
+
+
+\begin{table}[t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Global Tournament Results (Row agent score against column agent)}
+\label{tournamentResults}
+\centering
+\resizebox{1\columnwidth}{!}{
+\begin{tabular}{r|cccccccc|c}
+ & \begin{sideways}NMCTS-RIP\end{sideways} & \begin{sideways}UCT-RIP\end{sideways} & \begin{sideways}NaïveMCTS\end{sideways} & \begin{sideways}UCT\end{sideways} & \begin{sideways}RandomBiased\end{sideways} & \begin{sideways}POWorkerRush\end{sideways} & \begin{sideways}POLightRush\end{sideways} & \begin{sideways}MixedBot\end{sideways} & \begin{sideways}Average\end{sideways}  \\ 
+\hline \hline
+NMCTS-RIP    & - & $\bm{80.6}$ & $\bm{72.1}$ & $\bm{96}$ & $\bm{100}$ & $42.1$ & $47.3$ & $26$ & $\bm{66.3}$ \\
+UCT-RIP      & $20.8$ & - & $30.6$ & {$\bm{78}$} & $\bm{98.1}$ & $26.8$ & $35.5$ & $14.1$ & $43.4$  \\
+NaïveMCTS    & $31$ & $\bm{69.3}$ & - & $\bm{94}$ & $\bm{100}$ & $34.5$ & $36.3$ & $9.3$ & $\bm{53.5}$ \\
+UCT          & $2.3$ & $21.3$ & $7.5$ & - & $\bm{84.8}$ & $13$ & $34.6$ & $1$ & $23.5$ \\
+RandomBiased & $0$ & $1$ & $0$ & $13$ & - & $0$ & $6.6$ & $0$ & $2.9$ \\
+POWorkerRush & $\bm{60.6}$ & $\bm{72.3}$ & $\bm{69.8}$ & $\bm{89.5}$ & $\bm{100}$ & - & $\bm{100}$ & $\bm{74.5}$ & $\bm{80.9}$  \\
+POLightRush  & $\bm{57.8}$ & $\bm{65.3}$ & $\bm{66.3}$ & $\bm{66.6}$ & $\bm{98.3}$ & $0$ & - & $30.8$ & $\bm{55}$  \\
+MixedBot     & $\bm{74.8}$ & $\bm{86.8}$ & $\bm{89.6}$ & $\bm{99}$ & $\bm{100}$ & $30.5$ & $\bm{82}$ & - & $\bm{80.4}$ \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+\begin{figure}[t]
+\begin{center}
+	\includegraphics[width=1\columnwidth]{figs/TR.pdf}
+	\caption{Tournament results in each of the three map sizes.}
+	\label{TournamentResultsAllMaps}
+\end{center}
+\end{figure}
+
+% ===========================================
+
+\subsection{Branching Factor \& Scalability Analysis}
 
 % --------------------------------------- CONCLUSIONS AND FUTURE WORK ------------------------------------------
 
