@@ -35,7 +35,7 @@ ORCID: 0000-0002-1305-8602}
 \textit{University of Mascara}\\
 Mascara, Algeria \\
 salem@univ-mascara.dz\\
-ORCID: ***}
+ORCID: 0000-0001-7052-5978}
 \and
 \IEEEauthorblockN{Antonio M. Mora}
 \IEEEauthorblockA{\textit{Dept. Signal Theory, Telematics and Communications} \\
@@ -65,7 +65,7 @@ ORCID: 0000-0003-1603-9105}
 \end{abstract}
 
 \begin{IEEEkeywords}
-
+Monte Carlo Tree Search, Move Pruning, Real-Time Strategy, Game AI
 \end{IEEEkeywords}
 
 
@@ -429,11 +429,16 @@ $32\times32$ & $43$ & $1$ & $56$ & $71$ \\
 \end{tabular}
 \end{table}
 
-
 % --------------------------------------- CONCLUSIONS AND FUTURE WORK ------------------------------------------
 
 \section{Conclusions and Future Work}
 \label{sec:conclusions}
+
+Throughout this paper, we have studied the possibility of employing move pruning as a way to enhance MCTS performance in the context of RTS games. We have identified a class of player-actions that can negatively impact the performance of low-level MCTS approaches, which we named, Inactive Player-Actions (IPAs), due to their tendency to keep at least one unit in an inactive state. A number of pruning approaches were conceived to directly prune IPAs, taking into account the existence of possibly useful IPAs. We then conducted a range of experiments to test the validity of our approaches, and discussed the obtained results. According to those results, pruning IPAs is clearly associated with a remarkable performance gain, due to the reduced branching factor, and the increased focus on more interesting player-actions. IPA pruning in NaïveMCTS demonstrated an interesting performance gain across increasingly larger maps.
+
+We believe that move pruning in this context, can be seen as an "inverse abstraction" approach, since we are trying to find the set of player-actions to avoid, whereas, action abstraction methods try to find the set of player-actions to focus on, exclusively. Pruning proven low quality player-actions could result in a more flexible and granular decision space, rather than the coarser space induced by action abstractions (scripts).
+
+IPAs could not be the only pruning targets available, we believe there could be a host of low quality player-action types that deserve pruning, such as those involving aimless unit movements. Researching more prunable player-action types falls into the scope of our next work, along further analysis of IPA pruning in larger scenarios, and the investigation of the impact of IPA pruning in multi-level search approaches such as STT\cite{barriga_combining_2017} and A3N\cite{moraes_action_2018}. Finally, we think that more research into the low-level structure of the RTS decision space, could lead to a deeper understanding of the general features of good decisions.
 
 %\section*{Acknowledgments}
 
