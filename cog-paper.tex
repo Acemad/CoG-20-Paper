@@ -9,6 +9,7 @@
 \usepackage{xcolor}
 \usepackage{rotating}
 \usepackage{bm}
+\usepackage{multirow}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -288,7 +289,7 @@ To analyse the influence of IPA pruning on the performance of MCTS, we ran a ser
 \item $R = \{0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1\}$
 \end{itemize}
 
-The total number of matches played for a single MCTS agent amounts to $(500\times\vert F\vert\times3) + (500\times\vert R\vert\times3)$, yielding $63000$ match for both UCT and NaïveMCTS. In this, and every subsequent experiment, we used the default UCT and NaïveMCTS parameters, as defined in \mRTS{} codebase, with $100ms$ per frame allocated to each agent as a computation budget. The experiments results are expressed in Figure \ref{PruningAnalysis}'s plots.
+The total number of matches played for a single MCTS agent amounts to $(500\times\vert F\vert\times3) + (500\times\vert R\vert\times3)$, yielding $63000$ match for both UCT and NaïveMCTS. In this, and every subsequent experiment, we kept the default UCT and NaïveMCTS parameters for all variants, as defined in \mRTS{} codebase, with $100ms$ per frame allocated to each agent as a computation budget. The experiments results are expressed in Figure \ref{PruningAnalysis}'s plots.
 
 Overall, we can see that in all cases, IPA pruning is responsible for a performance gain of variable rates, depending on the amount of IPAs allowed, and the branching factor, represented by the map size. In UCT-RIP-F, allowing a small number of IPAs ($0 < k \leq 5$) significantly increases UCT's performance, however, the more IPAs are allowed, the more performance decreases until pruning losses its effect ($k \geq 1000$). In UCT-RIP-R, the same trend is witnessed. Allowing only a small percent of IPAs ($0.1 \leq p \leq 0.3$) does increase UCT's performance, but the more we increase $p$ the more performance drops. We note that UCT-RIP-R($p=1$) and UCT-RIP-F($k \geq 1000$) are equivalent to non-pruning UCT. 
 
@@ -342,7 +343,7 @@ In addition to the following IPA pruning agents:
 \item \textit{UCT-RIP:} Same as the above, but based on UCT.
 \end{itemize}
 
-We also included unmodified UCT, for the sake of comparison. The global tournament results are reported in Table \ref{tournamentResults}, and the results by map-size are shown in Figure \ref{TournamentResultsAllMaps}. The score is calculated similarly to the previous experiment, by summing the win count and half of the draw count.
+We also included unmodified UCT, for the sake of comparison. The global tournament results are reported in Table \ref{tournamentResults}, and the results by map-size are shown in Figure \ref{TournamentResultsAllMaps}. The score is calculated similarly to the previous experiment, by summing the win count and the half of the draw count.
 
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
@@ -373,14 +374,62 @@ MixedBot     & $\bm{74.8}$ & $\bm{86.8}$ & $\bm{89.6}$ & $\bm{99}$ & $\bm{100}$ 
 \end{center}
 \end{figure}
 
+% Branching factor analysis results - floating table. ---------------------------
+\begin{table*}[!t]
+\caption{Branching Factor, Explored Actions and IPA Pruning Statistics}
+\label{BranchingFactorTable}
+\renewcommand{\arraystretch}{1.3}
+\centering
+\resizebox{1\textwidth}{!}{
+\begin{tabular}{c|c||c|c|c|c||c|c|c} 
+\hline
+Agent & Map & \begin{tabular}[c]{@{}c@{}}Avg.\\Branching Factor\end{tabular} & \begin{tabular}[c]{@{}c@{}}Avg.\\Unit Count\end{tabular} & \begin{tabular}[c]{@{}c@{}}Avg.\\Unit Actions\end{tabular} & IPAs \% & \begin{tabular}[c]{@{}c@{}}Avg.\\Explored Actions\end{tabular} & \begin{tabular}[c]{@{}c@{}}IPAs \% in\\Explored Actions\end{tabular} & \begin{tabular}[c]{@{}c@{}}Pruned IPAs \%\\(WRT Explored Actions)\end{tabular} \\ 
+\hline \hline
+\multirow{3}{*}{NMCTS-RIP} & 
+   $8\times8$ & $1782$ & $5.19$ & $3.15$ & $84.81\%$ & $70.81$ & $33.82\%$  & $6.04\%$  \\
+ & $12\times12$ & $2.48\times10^7$ & $14.39$ & $2.67$ & $99.74\%$ & $75.27$ & $71.81\%$ & $14.32\%$            \\
+ & $16\times16$ & $9.519\times10^{11}$ & $20.92$ & $3.11$ & $99.96\%$ & $71.25$ & $76.72\%$ & $24.56\%$ \\ 
+\hline
+\multirow{3}{*}{NaïveMCTS} & 
+   $8\times8$ & $784$ & $5.32$ & $2.71$ & $89.17\%$ & $71.76$ & $80.03\%$ & $0\%$ \\
+ & $12\times12$ & $6.51\times10^6$ & $14.39$ & $2.54$ & $99.74\%$ & $80.11$ & $99.24\%$ & $0\%$ \\
+ & $16\times16$ & $1.842\times10^{11}$ & $20.06$ & $3.05$ & $99.90\%$ & $76.85$ & $99.88\%$ &  $0\%$ \\
+\hline
+\end{tabular}}
+\end{table*}
+
 The results demonstrate how IPA pruning positively affects the playing strength of UCT and NaïveMCTS. Looking at the average scores, NMCTS-RIP achieved a $12.8$ points increase with respect to NaïveMCTS, and UCT-RIP achieved a near $20$ points increase relative to UCT. IPA pruning in UCT (UCT-RIP) managed to shrink the performance gap between UCT and NaïveMCTS from $30$ points to $10.1$ points, noticeable in Figure \ref{TournamentResultsAllMaps}, where UCT-RIP's performance closely matches that of NaïveMCTS in the $8\times8$ map. Moreover, NMCTS-RIP was able to score a higher average than POLightRush, one of the strongest scripts usually outranking NaïveMCTS. Against each individual agent, both NMCTS-RIP and UCT-RIP obtained significantly higher scores than those of NaïveMCTS and UCT respectively.
 
 As expected, scripts and script-based approaches exhibit a superior performance versus low-level MCTS search approaches, due to the integration of expert knowledge in the form of hard-coded scripts. Expert knowledge inherently steers search away from detrimental player-actions, by focusing only on a limited set of player-actions deemed more rewarding, at the cost of losing decision granularity and becoming prone to possible exploitation. By directly pruning detrimental player-actions, we hope to focus search on a wider range of interesting player-actions while keeping a higher degree of decision granularity. The fact that NMCTS-RIP could achieve a higher average score than MixedBot in the $12\times12$ map signifies that our approach could be promising.
 
 % ===========================================
 
-\subsection{Scalability \& Branching Factor Analysis}
+\subsection{Branching Factor \& Scalability}
 
+To better grasp how IPA pruning affects MCTS performance, we took $100$ mid-game states from matches between NMCTS-RIP and NaïveMCTS, and ran a $100ms$ search starting from those states, for both agents. The search was limited to one ply, and the mid-game was defined at $400$, $600$ and $1000$ game cycles for each map of size $8\times8$, $12\times12$ and $16\times16$, respectively. The statistics collected during these searches are reported in Table \ref{BranchingFactorTable}.
+
+We can see that the branching factor in mid-game states is higher in NMCTS-RIP, which can be interpreted as the result of the similarly higher, average unit actions. This, in turn, is the consequence of units being spread out on the map, due to lesser IPAs (more movements), leading to more space between units, and thus, more possibilities for each. 
+
+The rate of IPAs in both branching factor, and explored actions, grows with respect to the branching factor, which is expected. The rate of IPAs in explored actions is significantly high in NaïveMCTS, reaching near $100\%$ in larger maps, whereas, in NMCTS-RIP, this rate could get lower than $34\%$ and no more than $77\%$, in the tested maps. Furthermore, the rate of pruned IPAs increases proportionally with the branching factor. Therefore, we can conclude that in larger maps, NaïveMCTS gets fully overwhelmed by IPAs, while NMCTS-RIP prunes more IPAs and focuses on a larger number of, possibly better, non-IPAs. This further highlights the detrimental effect of the overabundance of IPAs.
+
+For every value of $k$ (or $p$), IPAs that involve trapped units are always kept if sampled, which explains why IPAs are still explored, even when $k$ (or $p$) is set to $0$.
+
+We ran $100$ match between NMCTS-RIP-F($0$) and NaïveMCTS in larger $24\times24$, and $32\times32$ maps, in order to test the performance scalability of IPA pruning in larger scenarios. The results in Table \ref{largeMaps} indicate a score maintainability and an increasing win:loss ratio with respect to the map size. Further experiments in these scenarios are planned in the context of our next works.
+
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.3}
+\centering
+\label{largeMaps}
+\caption{NMCTS-RIP-F($0$) Results in Larger Maps}
+\begin{tabular}{c|c|c|c|c} 
+\cline{2-5}
+\multicolumn{1}{c|}{} & Wins & Losses & Draws & Score  \\ 
+\hline \hline
+$24\times24$ & $52$ & $6$ & $42$ & $73$ \\
+$32\times32$ & $43$ & $1$ & $56$ & $71$ \\
+\hline
+\end{tabular}
+\end{table}
 
 
 % --------------------------------------- CONCLUSIONS AND FUTURE WORK ------------------------------------------
