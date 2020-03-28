@@ -80,9 +80,9 @@ Due to the game's complexity, conceiving a human-challenging, RTS game-playing a
 
 Holistic, search-based approaches such as MCTS (Monte Carlo Tree Search), enjoyed a remarkable success in computer Go, as demonstrated by AlphaGo \cite{silver_mastering_2016}. However, in RTS games, MCTS-based agents struggle with the enormous decision space, and fail to scale suitably when the branching factor grows past a certain threshold. Such downside, limits MCTS applicability to smaller and limited scenarios, such as tactical planning, or small maps. Abstracting the decision space is a tried and tested technique for scaling MCTS-based approaches to larger scenarios, at the expense of sacrificing tactical performance, due to the coarser actions considered.
 
-In this paper, we propose an approach to enhance the performance and scalability of search-based techniques, particularly MCTS-based, by pruning unnecessary and detrimental player-actions, from the decision space of an RTS game. We inspect the low-level structure of the search space and identify detrimental player-actions, and then apply a number of hard-pruning approaches to remove those player-actions during search. The desired outcomes of such approach is the reduction of the branching factor, and the exploration of more promising player-actions. Our pruning approach focuses on a class of player-actions we identify as Inactive Player-Actions, and is applied for both UCT and NaïveMCTS. The experimentation results, using \mRTS{}, show an important performance gain, relative to the size of the map in use.
+In this paper, we propose an approach to enhance the performance and scalability of search-based techniques, particularly MCTS-based, by pruning unnecessary and detrimental player-actions, from the decision space of an RTS game. We inspect the low-level structure of the search space and identify detrimental player-actions, and then apply a number of hard-pruning approaches to remove those player-actions during search. The desired outcomes of such approach is the reduction of the branching factor, and the exploration of more promising player-actions. Our pruning approach focuses on a class of player-actions we identify as Inactive Player-Actions (IPAs), and is applied for both UCT and NaïveMCTS. The experimentation results, using \mRTS{}, show an important performance gain, relative to the size of the map in use.
 
-The rest of this paper is organized as follows : Section \ref{sec:background} reviews some background information about RTS games, \mRTS{} and MCTS. Section \ref{sec:state_of_the_art} presents some works related to our approach and Section \ref{sec:proposed_method} describes Inactive Player-Actions and the move pruning approaches implemented. Experimental results are presented and discussed in Section \ref{sec:experiments}, and Section \ref{sec:conclusions} concludes the paper with some conclusions and future perspectives.
+The rest of this paper is organized as follows : Section \ref{sec:background} reviews some background information about RTS games, \mRTS{} and MCTS. Section \ref{sec:state_of_the_art} presents the related state of the art and Section \ref{sec:proposed_method} describes Inactive Player-Actions and the move pruning approaches implemented. Experimental results are presented and discussed in Section \ref{sec:experiments}, and Section \ref{sec:conclusions} concludes the paper with some conclusions and future perspectives.
 % Antonio - You must use references to sections and subsections. Use "label" command to set the name and "ref" command to reference it. ;)
 %           Please, check it out along the text for missing references non properly done.
 
@@ -103,9 +103,9 @@ Based on the terminology and definitions presented in \cite{ontanon_combinatoria
 \item $S$ : the set of all possible states (state space).
 \item $A$ : the set of player-actions (decision space).
 \item $P$ : the players set, where $P=\{max,min\}$ for a 2-player setting.
-\item $\tau : S \times A \times A \rightarrow S$ : the state transition function, taking a game state in time $t$ and the player-actions of both players, and returns a new game state in $t+1$.
+\item $\tau : S \times A \times A \rightarrow S$ : the state transition function, it takes a game state in time $t$ and the player-actions of both players, and returns a new game state in $t+1$.
 \item $L: S \times A \times P \rightarrow \{true,false\}$ : determines the legality of a player-action in a state for a specific player.
-\item $W: S \rightarrow P \cup \{ongoing,draw\}$ : determines the winner of the game (if any) or if the game is a draw or is still ongoing.
+\item $W: S \rightarrow P \cup \{ongoing,draw\}$ : determines the winner of the game or if the game is a draw or is still ongoing.
 \item $s_{init} \in S$ : the initial state.
 \end{itemize}
 
@@ -137,7 +137,7 @@ The goal of an RTS game-playing agent is to compute the optimal player-action $a
 \item Selection : Select a node with unexplored children, following a tree policy.
 \item Expansion : Expand the selected node by creating and attaching a new child node.
 \item Simulation : Start a simulation (playout) from the new node, following a playout policy.
-\item Backpropagation : Backpropagate the simulation's results starting from the new node up to the root node, updating all the intermediary nodes' statistics (visit count and value).
+\item Backpropagation : Backpropagate the simulation's results starting from the new node up to the root node, updating all the intermediary nodes' statistics (visit count and value) on the way.
 \end{enumerate}
 
 The most visited decision is usually the one returned. Given enough computation budget and a proper exploration / exploitation equilibrium in the tree policy, MCTS is guaranteed to find the minimax solution, in the limits. The most popular MCTS implementation, UCT (Upper Confidence bounds for Trees), uses UCB1 formula as a tree policy, treating the selection phase as a multi-armed bandit (MAB) problem. Although remarkably successful in Go, UCT does not perform as well in RTS games, due to the rapid growth in the branching factor, with the increase in the unit count. NaïveMCTS was specifically designed to address the combinatorial search space in RTS games, by formulating the selection phase as a combinatorial MAB (CMAB). Additionally, NaïveMCTS employs a naïve sampling approach that relies on a naïve assumption considering the reward estimate of a player-action as the sum of the reward estimates of the underlying unit-actions. In our experiments, we used both UCT and NaïveMCTS as the base search algorithms for our pruning approach.
@@ -179,17 +179,17 @@ As a first attempt, we chose to focus on player-actions having the highest chanc
 
 \subsection{Unit-Actions and Player-Actions}
 
-In a typical RTS game, each unit type can execute a distinct set of actions, known as unit-actions. Table \ref{unitActionsTable} enumerates the unit-action types executable by each unit type in \mRTS{}. The Worker unit type is clearly the most versatile type, followed by assault units (Light, Ranged, Heavy), then structures (Base, Barracks). The attributes of each unit-type define how a unit-action is executed. For instance, the damage attribute governs how much damage a unit-type causes when executing the Attack unit-action, thus, each unit type is unique in the way it behaves, even for shared unit-actions. All unit-action types, except Wait, require a positional argument to define where, or on whom the action should be taken. The Wait unit-action type requires a numeric argument determining how many cycles the unit should remain idle. Wait is also the single unit-action type executable by all unit types.
+In a typical RTS game, each unit type can execute a distinct set of actions, known as unit-actions. Table \ref{unitActionsTable} enumerates the unit-action types executable by each unit type in \mRTS{}. The Worker unit type is clearly the most versatile type, followed by assault units (Light, Ranged, Heavy), then structures (Base, Barracks). The attributes of each unit-type define how a unit-action is executed. For instance, the damage attribute controls how much damage a unit-type causes when executing the Attack unit-action, thus, each unit type is unique in the way it behaves, even for shared unit-actions. All unit-action types, except Wait, require a positional argument to define where, or on whom the action should be taken. The Wait unit-action type requires a numeric argument determining how many cycles the unit should remain idle. Wait is also the single unit-action type executable by all unit types.
 
 \begin{table}[!h]
 \renewcommand{\arraystretch}{1.3}
 \caption{The unit-action types available for each unit type in \mRTS{}}
 \label{unitActionsTable}
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|}
+\begin{tabular}{c|c|c|c|c|c|c}
 \cline{2-7}
 \multicolumn{1}{c|}{} & Move & Attack & Harvest & Return & Produce & Wait \\
-\hline
+\hline \hline
 Worker   & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ \\
 %\hline
 Light    & $\bullet$ & $\bullet$ & & & & $\bullet$ \\
@@ -205,7 +205,7 @@ Barracks & & & & & $\bullet$ & $\bullet$ \\
 \end{tabular}
 \end{table}
 
-A player-action $p \in A$, issued to $n$ units at a given game cycle, can be regarded as a tuple, where $p = (a_1, a_2, \dots, a_n)$, and each component $a_i$ represents a unit-action issued by the player, to the same-indexed unit. Assuming that each unit is assigned a valid and legal unit-action and given the average number of unit-actions available to each unit, $m$, the number of all possible player-actions, or the branching factor, $b$, can be estimated as $b = m^n$. We seek to lower $b$, by finding ways to decrease $m$ without negatively impacting the playing strength.
+A player-action $p \in A$, issued to $n$ units at a given game cycle, can be regarded as a tuple, where $p = (a_1, a_2, \dots, a_n)$, and each component $a_i$ represents a unit-action issued by the player, to the same-indexed unit. Assuming that each unit is assigned a valid and legal unit-action, and given the average number of unit-actions available to each unit, $m$, the number of all possible player-actions, or the branching factor, $b$, can be estimated as $b = m^n$. We seek to lower $b$, by finding ways to decrease $m$ without negatively impacting the playing strength.
 
 % ===========================================
 
@@ -218,7 +218,7 @@ We define an Inactive Player-Action (IPA) as a player-action having at least one
 \item \textit{Tactical waiting :} The unit anticipates for a chance to execute a high-value unit-action. Here, the unit expects a sub-optimal action by an opponent unit (via lookahead), and chooses to Wait, in anticipation for it, so that it can execute its high-value action afterwards. This behaviour is frequently observed in tactical skirmishes.
 \end{itemize}
 
-Although mildly useful, Wait unit-actions can also have a devastating effect on playing strength, if improperly chosen. According to our observations, it is not unlikely for a search-based agent (MCTS or otherwise) to assign a Wait unit-action to a unit in a situation where better options exist. In such cases, doing nothing is the worst decision possible. We identify three disadvantageous situations, where Waiting cannot be a sound decision :
+Although potentially useful, Wait unit-actions can also have a devastating effect on playing strength, if improperly chosen. According to our observations, it is not unlikely for a search-based agent (MCTS or otherwise) to assign a Wait unit-action to a unit in a situation where better options exist. In such cases, doing nothing is the worst decision possible. We identify three disadvantageous situations, where Waiting cannot be a sound decision :
 
 \begin{itemize}
 \item \textit{Waiting in front of opportunity :} Here, the unit is able to seize an immediate opportunity, such as Harvest resources, Return harvested resources, or safely remove an opponent unit. Instead, the unit is assigned Wait.
@@ -255,7 +255,7 @@ These pruning approaches can be easily implemented and adapted to any search alg
 \begin{figure*}[!h]
 \begin{center}
 	\includegraphics[width=1\textwidth]{figs/PT-h.pdf}
-	\caption{Results of the pruning analysis experiments. Each data point represents $500$ match between the basic MCTS agent and the one augmented with IPA pruning. In each plot, the vertical axis represents the score obtained by the IPA pruning MCTS agent, against the base MCTS agent. The score is calculated as such : $score = ((Wins + (Draws / 2)) / 500) \times 100$.}
+	\caption{Results of the pruning analysis experiments. Each data point represents $500$ match between the basic MCTS agent and the one augmented with IPA pruning. In each plot, the vertical axis represents the score obtained by the IPA pruning MCTS agent, against the base MCTS agent. The score is calculated as such : $score = ((Wins + (Draws / 2)) / 500) \times 100$. A match is considered a draw if no winner has been decided after $3000$, $3500$ and $4000$ cycles in each map of size $8\times8$, $12\times12$ and $16\times16$ respectively.}
 	\label{PruningAnalysis}
 \end{center}
 \end{figure*}
@@ -276,7 +276,7 @@ These pruning approaches can be easily implemented and adapted to any search alg
 
 To study the effect of pruning IPAs on MCTS, we implemented the four aforementioned pruning techniques in UCT and NaïveMCTS, and conducted various experiments in \mRTS{}. It is true that UCT's performance suffers greatly in RTS scenarios, due to UCB1's limitations in combinatorial search spaces \cite{ontanon_combinatorial_2013}, nevertheless, we wanted to see if pruning IPAs would alleviate the dimensionality burden, and result in a performance improvement. Integrating IPA pruning into UCT and NaïveMCTS generated new agents that we refer to by suffixing the acronym of the technique to the that of the original search approach. For instance the agent using RIP-R in UCT or NaïveMCTS is noted as UCT-RIP-R($p$) or NMCTS-RIP-R($p$).
 
-We first analysed the performance of RIP-F and RIP-R, with respect to the amount of IPAs allowed, the size of the map in use, and the MCTS algorithm. We then took the best performing pruning approaches for each MCTS algorithm and map size, and performed a round-robin tournament with other \mRTS{} agents. Afterwards, we performed a scalability test in larger maps. The experiments were carried out on two PCs with an Intel Core i5 and i7 CPUs, clocked at 3.1Ghz and 3.4Ghz respectively, using the latest version of \mRTS{} at the time of writing.
+We first analysed the performance of RIP-F and RIP-R, with respect to the amount of IPAs allowed, the size of the map in use, and the MCTS algorithm. We then took the best performing pruning approaches for each MCTS algorithm and map size, and performed a round-robin tournament with other \mRTS{} agents. Afterwards, we examined the impact on the branching factor and performed a scalability test in larger maps. The experiments were carried out on two PCs with an Intel Core i5 and i7 CPUs, clocked at 3.1Ghz and 3.4Ghz respectively, using the latest version of \mRTS{} at the time of writing.
 
 % ===========================================
 
@@ -289,7 +289,7 @@ To analyse the influence of IPA pruning on the performance of MCTS, we ran a ser
 \item $R = \{0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1\}$
 \end{itemize}
 
-The total number of matches played for a single MCTS agent amounts to $(500\times\vert F\vert\times3) + (500\times\vert R\vert\times3)$, yielding $63000$ match for both UCT and NaïveMCTS. In this, and every subsequent experiment, we kept the default UCT and NaïveMCTS parameters for all variants, as defined in \mRTS{} codebase, with $100ms$ per frame allocated to each agent as a computation budget. The experiments results are expressed in Figure \ref{PruningAnalysis}'s plots.
+The total number of matches played for a single MCTS agent amounts to $(500\times\vert F\vert\times3) + (500\times\vert R\vert\times3)$, yielding $63000$ match for both UCT and NaïveMCTS. In this, and every subsequent experiment, we kept the default UCT and NaïveMCTS parameters, for all variants, as defined in \mRTS{} codebase, with $100ms$ per frame allocated to each agent as a computation budget. The experiments results are expressed in Figure \ref{PruningAnalysis}'s plots.
 
 Overall, we can see that in all cases, IPA pruning is responsible for a performance gain of variable rates, depending on the amount of IPAs allowed, and the branching factor, represented by the map size. In UCT-RIP-F, allowing a small number of IPAs ($0 < k \leq 5$) significantly increases UCT's performance, however, the more IPAs are allowed, the more performance decreases until pruning losses its effect ($k \geq 1000$). In UCT-RIP-R, the same trend is witnessed. Allowing only a small percent of IPAs ($0.1 \leq p \leq 0.3$) does increase UCT's performance, but the more we increase $p$ the more performance drops. We note that UCT-RIP-R($p=1$) and UCT-RIP-F($k \geq 1000$) are equivalent to non-pruning UCT. 
 
@@ -297,7 +297,7 @@ The highest performance gain was recorded in the small $8\times8$ map, represent
 
 From the perspective of NaïveMCTS, IPA pruning exhibits the same effect as in UCT, with two key differences. First, in the smallest $8\times8$ map, NaïveMCTS performs optimally when more IPAs are allowed, that is, when $5 \leq k \leq 50$ in NMCTS-RIP-F, and when $p=0.9$ in NMCTS-RIP-R. This is probably because naïve sampling already handles small scenarios well, and can gain an advantage if a portion of IPAs is kept, to explore tactical waiting situations. However, In larger maps, pruning all IPAs ($k = 0$, or $p = 0$) yields the highest performance gain. Here, due to the bigger branching factor, pruning IPAs significantly contributes to the better utilization of the computation budget.
 
-The second, most interesting difference with respect to UCT, is the scalability of performance relative to the increase in the branching factor. As opposed to UCT, NaïveMCTS enhanced with IPA pruning, delivers its best performance in the largest $16\times16$ map, followed by the medium-sized $12\times12$ map. In this case, having less IPAs in the search space allows naïve sampling to sample and explore more interesting player-actions, instead of wasting time on IPAs. Moreover, pruning IPAs also allows units to move more often, thus, better explore larger maps and discover interesting opportunities. We will see later how does this translates to even larger maps.
+The second, most interesting difference with respect to UCT, is the scalability of performance relative to the increase in the branching factor. As opposed to UCT, NaïveMCTS enhanced with IPA pruning, delivers its best performance in the largest $16\times16$ map, followed by the medium-sized $12\times12$ map. In this case, having less IPAs in the search space allows naïve sampling to sample and explore more interesting player-actions, instead of wasting time on IPAs. Moreover, pruning IPAs also allows units to move more often, thus, better explore larger maps and discover interesting opportunities. We will see further how does this translates to even larger maps.
 
 % ===========================================
 
@@ -311,10 +311,10 @@ Concerning dynamic pruning approaches (DRIP-F and DRIP-R), we have conducted a s
 \label{bestApproaches}
 \centering
 \resizebox{1\columnwidth}{!}{
-\begin{tabular}{|c|c|c||c|c||c|c|}
+\begin{tabular}{c|c|c||c|c||c|c}
 \cline{2-7}
 \multicolumn{1}{c|}{} & $8\times8$ & Score & $12\times12$ & Score & $16\times16$ & Score  \\ 
-\hline
+\hline \hline
 UCT & DRIP-F(1,0) & $82.2$ & DRIP-R(0.2,0.4) & $76.8$ & RIP-F(1) & $63.9$ \\
 NaïveMCTS & RIP-R(0.9) & $62.3$ & RIP-R(0) & $73.3$ & RIP-F(0) & $78.6$ \\
 \hline
@@ -383,17 +383,17 @@ MixedBot     & $\bm{74.8}$ & $\bm{86.8}$ & $\bm{89.6}$ & $\bm{99}$ & $\bm{100}$ 
 \resizebox{1\textwidth}{!}{
 \begin{tabular}{c|c||c|c|c|c||c|c|c} 
 \hline
-Agent & Map & \begin{tabular}[c]{@{}c@{}}Avg.\\Branching Factor\end{tabular} & \begin{tabular}[c]{@{}c@{}}Avg.\\Unit Count\end{tabular} & \begin{tabular}[c]{@{}c@{}}Avg.\\Unit Actions\end{tabular} & IPAs \% & \begin{tabular}[c]{@{}c@{}}Avg.\\Explored Actions\end{tabular} & \begin{tabular}[c]{@{}c@{}}IPAs \% in\\Explored Actions\end{tabular} & \begin{tabular}[c]{@{}c@{}}Pruned IPAs \%\\(WRT Explored Actions)\end{tabular} \\ 
+Agent & Map & \begin{tabular}[c]{@{}c@{}}Avg. Branching \\Factor ($b$) (Incl IPAs)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Avg. Unit\\Count ($n$)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Avg. Unit-Actions\\ ($m$) (Incl Wait)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Avg. Branching\\Factor ($b'$) (w/o IPAs)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Avg.\\Sampled Actions\end{tabular} & \begin{tabular}[c]{@{}c@{}}IPAs \% in\\Sampled Actions\end{tabular} & \begin{tabular}[c]{@{}c@{}}Pruned IPAs \%\\(WRT Sampled Actions)\end{tabular} \\ 
 \hline \hline
 \multirow{3}{*}{NMCTS-RIP} & 
-   $8\times8$ & $1782$ & $5.19$ & $3.15$ & $84.81\%$ & $70.81$ & $33.82\%$  & $6.04\%$  \\
- & $12\times12$ & $2.48\times10^7$ & $14.39$ & $2.67$ & $99.74\%$ & $75.27$ & $71.81\%$ & $14.32\%$            \\
- & $16\times16$ & $9.519\times10^{11}$ & $20.92$ & $3.11$ & $99.96\%$ & $71.25$ & $76.72\%$ & $24.56\%$ \\ 
+   $8\times8$ & $1782$ & $5.19$ & $3.15$ & $54$ & $70.81$ & $33.82\%$  & $6.04\%$  \\
+ & $12\times12$ & $2.48\times10^7$ & $14.39$ & $2.67$ & $1561$ & $75.27$ & $71.81\%$ & $14.32\%$            \\
+ & $16\times16$ & $9.519\times10^{11}$ & $20.92$ & $3.11$ & $6.12\times10^6$ & $71.25$ & $76.72\%$ & $24.56\%$ \\ 
 \hline
 \multirow{3}{*}{NaïveMCTS} & 
-   $8\times8$ & $784$ & $5.32$ & $2.71$ & $89.17\%$ & $71.76$ & $80.03\%$ & $0\%$ \\
- & $12\times12$ & $6.51\times10^6$ & $14.39$ & $2.54$ & $99.74\%$ & $80.11$ & $99.24\%$ & $0\%$ \\
- & $16\times16$ & $1.842\times10^{11}$ & $20.06$ & $3.05$ & $99.90\%$ & $76.85$ & $99.88\%$ &  $0\%$ \\
+   $8\times8$ & $784$ & $5.32$ & $2.71$ & $17$ & $71.76$ & $80.03\%$ & $0\%$ \\
+ & $12\times12$ & $6.51\times10^6$ & $14.39$ & $2.54$ & $494$ & $80.11$ & $99.24\%$ & $0\%$ \\
+ & $16\times16$ & $1.842\times10^{11}$ & $20.06$ & $3.05$ & $1.87\times10^6$ & $76.85$ & $99.88\%$ &  $0\%$ \\
 \hline
 \end{tabular}}
 \end{table*}
@@ -406,15 +406,13 @@ As expected, scripts and script-based approaches exhibit a superior performance 
 
 \subsection{Branching Factor \& Scalability}
 
-To better grasp how IPA pruning affects MCTS performance, we took $100$ mid-game states from matches between NMCTS-RIP and NaïveMCTS, and ran a $100ms$ search starting from those states, for both agents. The search was limited to one ply, and the mid-game was defined at $400$, $600$ and $1000$ game cycles for each map of size $8\times8$, $12\times12$ and $16\times16$, respectively. The statistics collected during these searches are reported in Table \ref{BranchingFactorTable}.
+To better grasp how IPA pruning affects MCTS performance, we took $100$ mid-game states from matches between NMCTS-RIP and NaïveMCTS, and ran a $100ms$ search, starting from those states, for both agents. The search was limited to one ply, and the mid-game was defined at $400$, $600$ and $1000$ game cycles for each map of size $8\times8$, $12\times12$ and $16\times16$, respectively. The statistics collected during these searches are reported in Table \ref{BranchingFactorTable}.
 
-We can see that the branching factor in mid-game states is higher in NMCTS-RIP, which can be interpreted as the result of the similarly higher, average unit actions. This, in turn, is the consequence of units being spread out on the map, due to lesser IPAs (more movements), leading to more space between units, and thus, more possibilities for each. 
+We can see that the branching factor ($b$) in mid-game states is higher in NMCTS-RIP, which can be interpreted as the result of the similarly higher, average unit-actions ($m$). This, in turn, is the consequence of units being spread out on the map, due to lesser IPAs (more movements), leading to more space between units, and thus, more possibilities for each. NMCTS-RIP samples player-actions from a portion of the decision space having a lower bound branching factor, $b'$, expanded with the number of IPAs involving trapped units and a random set of allowed IPAs defined by the pruning approach.
 
-The rate of IPAs in both branching factor, and explored actions, grows with respect to the branching factor, which is expected. The rate of IPAs in explored actions is significantly high in NaïveMCTS, reaching near $100\%$ in larger maps, whereas, in NMCTS-RIP, this rate could get lower than $34\%$ and no more than $77\%$, in the tested maps. Furthermore, the rate of pruned IPAs increases proportionally with the branching factor. Therefore, we can conclude that in larger maps, NaïveMCTS gets fully overwhelmed by IPAs, while NMCTS-RIP prunes more IPAs and focuses on a larger number of, possibly better, non-IPAs. This further highlights the detrimental effect of the overabundance of IPAs.
+The rate of IPAs in both branching factor, and sampled actions, grows with respect to the branching factor, which is expected. The rate of IPAs in sampled actions is significantly high in NaïveMCTS, reaching near $100\%$ in larger maps, whereas, in NMCTS-RIP, this rate could get lower than $34\%$ and no more than $77\%$, in the tested maps. Furthermore, the rate of pruned IPAs increases proportionally with the branching factor. Therefore, we can conclude that in larger maps, NaïveMCTS gets fully overwhelmed by IPAs, while NMCTS-RIP prunes more IPAs and focuses on a larger number of, possibly better, non-IPAs. This further highlights the detrimental effect of the overabundance of IPAs.
 
-For every value of $k$ (or $p$), IPAs that involve trapped units are always kept if sampled, which explains why IPAs are still explored, even when $k$ (or $p$) is set to $0$.
-
-We ran $100$ match between NMCTS-RIP-F($0$) and NaïveMCTS in larger $24\times24$, and $32\times32$ maps, in order to test the performance scalability of IPA pruning in larger scenarios. The results in Table \ref{largeMaps} indicate a score maintainability and an increasing win:loss ratio with respect to the map size. Further experiments in these scenarios are planned in the context of our next works.
+We ran $100$ match (switching sides after 50 match) between NMCTS-RIP-F($0$) and NaïveMCTS in larger $24\times24$, and $32\times32$ maps, in order to test the performance scalability of IPA pruning in larger scenarios. The results in Table \ref{largeMaps} indicate score stability and an increasing win:loss ratio with respect to the map size. Further experiments in these scenarios are planned in the context of our next works.
 
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
