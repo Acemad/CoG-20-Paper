@@ -3,13 +3,16 @@
 
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
-\usepackage{algorithmic}
+%\usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{rotating}
 \usepackage{bm}
 \usepackage{multirow}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode} 
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -259,7 +262,7 @@ The radical pruning approach would be to remove all IPAs from the search space, 
 \begin{figure*}[!h]
 \begin{center}
 	\includegraphics[width=1\textwidth]{figs/PT-h.pdf}
-	\caption{Results of the pruning analysis experiments. Each data point represents $500$ matches between the basic MCTS agent and the one augmented with IPA pruning. In each plot, the vertical axis represents the score obtained by the IPA pruning MCTS agent, against the base MCTS agent. The score is calculated as such: $score = ((Wins + (Draws / 2)) / 500) \times 100$. A match is considered a draw if no winner has been decided after $3000$, $3500$ and $4000$ cycles in each map of size $8\times8$, $12\times12$ and $16\times16$ respectively.}
+	\caption{Results of the pruning analysis experiments. Each data point represents $500$ matches between the basic MCTS agent and the one augmented with IPA pruning. In each plot, the vertical axis represents the score obtained by the IPA pruning MCTS agent against the base MCTS agent. The score is calculated as such: $score = ((Wins + (Draws / 2)) / 500) \times 100$. A match is considered a draw if no winner has been decided after $3000$, $3500$, and $4000$ cycles in each map of size $8\times8$, $12\times12$, and $16\times16$, respectively.}
 	\label{PruningAnalysis}
 \end{center}
 \end{figure*}
@@ -275,7 +278,36 @@ Detecting trapped units is a straightforward process. But dealing with tactical 
 
 The intuition behind dynamic approaches is to equalize the chances of performing tactical waiting when the agent does not hold a numerical advantage. This is done by allowing more IPAs when the agent is outnumbered ($k_2 > k_1$ or, $p_2 > p_1$).
 
-These pruning approaches can be easily implemented and adapted to any search algorithm. They operate by capturing player-actions while sampling and checking whether an IPA was captured or not. In case the IPA does not involve a trapped unit, a parameter check decides whether to prune the IPA or allow it. If pruned, the search algorithm must sample another action while keeping track of the pruned IPAs. In the next section, we report the experimentations conducted and the results obtained by enhancing UCT and NaïveMCTS with these pruning approaches in the context of RTS games.
+These approaches can be easily implemented as part of any search algorithm, as shown in Algorithm 1. \textsc{isIPA($a$)} returns true if at least one Wait unit-action exists in $a$, and \textsc{TrappedUnit($a$)} returns true if $a$ includes a Wait unit-action involving a trapped unit. \textsc{CheckParam()} returns true if a parameter-check decides to disallow (prune) the player-action.
+
+%They operate by capturing player-actions while sampling and checking whether an IPA was captured or not. In case the IPA does not involve a trapped unit, a parameter check decides whether to prune the IPA or allow it. If pruned, the search algorithm must sample another action while keeping track of the pruned IPAs. 
+
+%In the next section, we report the experiments conducted and the results obtained by enhancing UCT and NaïveMCTS with these pruning approaches in the context of RTS games.
+
+\begin{center}
+\scalebox{0.9}{ 
+\begin{minipage}{1\linewidth}
+\begin{algorithm}[H]
+\label{pruningAlgorithm}
+\caption{The general IPA pruning algorithm.}
+\begin{algorithmic}[1]
+\Function{Prune}{$a$} \Comment{$a:$ sampled player-action}
+	\If{ \textsc{isIPA($a$)}}
+		\If{\textsc{TrappedUnit($a$)}} \textbf{return} $a$ \EndIf
+		\If{$a\in$ \textit{prunedIPAs} \textbf{or} \textsc{CheckParam()}}
+			\While{\textsc{isIPA($a$)}}
+				\State \textit{prunedIPAs.addIfNotExist}($a$)
+				\State $a\gets$ \textsc{SampleAction}(gameState)
+			\EndWhile
+		\EndIf
+	\EndIf
+	\State \textbf{return} $a$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+\end{minipage}}
+\end{center}
+
 
 % --------------------------------------- EXPERIMENTATION AND RESULTS ------------------------------------------
 
@@ -437,10 +469,10 @@ The rate of IPAs in both branching factor and sampled actions grows proportional
 We have run $100$ matches (switching sides after 50 matches) between NMCTS-RIP-F($0$) and NaïveMCTS in larger $24\times24$ and $32\times32$ maps, to test the performance scalability of IPA pruning in larger scenarios. The results in Table \ref{largeMaps} suggest a stable score trend and an increasing win/loss ratio proportional to the map's size. Further experiments in these scenarios are planned in the context of our next works.
 
 \begin{table}[!t]
+\caption{NMCTS-RIP-F($0$) Results in Larger Maps}
+\label{largeMaps}
 \renewcommand{\arraystretch}{1.3}
 \centering
-\label{largeMaps}
-\caption{NMCTS-RIP-F($0$) Results in Larger Maps}
 \begin{tabular}{c|c|c|c|c} 
 \cline{2-5}
 \multicolumn{1}{c|}{} & Wins & Losses & Draws & Score  \\ 
