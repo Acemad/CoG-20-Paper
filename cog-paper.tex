@@ -88,15 +88,15 @@ Holistic search-based approaches such as Monte Carlo Tree Search (MCTS) \cite{br
 % Antonio - add a reference to this asseveration, if possible
 at the expense of sacrificing tactical performance due to the coarser actions considered.
 
-In this paper, we propose an approach to increase the performance and scalability of search-based techniques, particularly MCTS-based, by pruning unnecessary and detrimental player-actions from the decision space of an RTS game. 
+We propose an approach to increase the performance and scalability of search-based techniques, particularly MCTS-based, by pruning unnecessary and detrimental player-actions from the decision space of an RTS game. 
 % Antonio - To be applied by an autonomous agent (as a part of its AI engine)
-We inspect the low-level structure of the search space and identify detrimental player-actions. Next, we apply multiple hard-pruning approaches to remove those player-actions during the search. The goal is to reduce the branching factor and explore more promising player-actions. Our approach focuses on pruning a class of player-actions we identify as Inactive Player-Actions (IPAs) 
-% Antonio - You should justify why have you chosen IPAs instead of any other possible action
-and is applied in two MCTS approaches: UCT (Upper Confidence bounds for Trees)
-% Antonio - you haven't mentioned UCT before. I have done it. ;)
- and NaïveMCTS. IPAs tend to keep at least one unit in an inactive state, which could be  problematic. The experimentation results using \mRTS{} show a considerable performance gain relative to the map's size.
+We inspect the low-level structure of the search space and identify detrimental player-actions through domain knowledge. Next, we apply multiple hard-pruning approaches to remove those player-actions during the search. The goal is to reduce the branching factor and explore more promising player-actions. Our approach targets a class of player-actions we identify as Inactive Player-Actions (IPAs) because they tend to keep at least one unit in an inactive state, which can be problematic. The experiments' results using UCT (Upper Confidence bounds for Trees) and NaïveMCTS in \mRTS{} show a considerable performance gain relative to the map's size.
 
-The rest of this paper is organized as follows: Section \ref{sec:background} reviews some background information about RTS games, \mRTS{} and MCTS. Section \ref{sec:state_of_the_art} presents the related state of the art and Section \ref{sec:proposed_method} describes IPAs and the proposed move pruning approaches. Experimental results are presented and discussed in Section \ref{sec:experiments}, and Section \ref{sec:conclusions} concludes the paper with some conclusions and future perspectives.
+% Antonio - You should justify why have you chosen IPAs instead of any other possible action 
+% Antonio - you haven't mentioned UCT before. I have done it. ;)
+ 
+
+The rest of this paper is organized as follows: Section \ref{sec:background} reviews some background knowledge about RTS games, \mRTS{} and MCTS. Section \ref{sec:state_of_the_art} presents the related state of the art and Section \ref{sec:proposed_method} describes IPAs and the proposed move pruning approaches. Experimental results are presented and discussed in Section \ref{sec:experiments}, and Section \ref{sec:conclusions} concludes the paper with some conclusions and future perspectives.
 
 % -------------------------------------------- BACKGROUND ------------------------------------------
 
@@ -176,7 +176,7 @@ Dealing with the enormous RTS decision space in the context of MCTS is an open p
 
 Abstracting the search space through expert-authored scripts is an effective way to considerably reduce the branching factor. Instead of searching in the low-level player-actions space, Justesen et al \cite{justesen_script-_2014} adapted UCT to search in the space of player-actions suggested by scripts. NaïveMCTS was similarly adapted by Moraes et al \cite{moraes_action_2018} using asymmetric abstractions \cite{moraes_asymmetric_2018} to search in multiple levels of abstraction. Puppet Search \cite{barriga_puppet_2015} employs UCT to search in the space of choice points inserted into scripts. Guided NaïveMCTS (GNS) \cite{yang_guiding_2019} biases the selection phase towards considering scripted actions first. Other search algorithms were also combined with action abstraction, such as local search in Portfolio Greedy Search (PGS) \cite{churchill_portfolio_2013} and minimax in AHTN \cite{ontanon_adversarial_2015}.
 
-Machine learning can be used to guide node selection by learning a tree policy from expert traces. AlphaGo \cite{silver_mastering_2016} employed a CNN-based policy network, trained from a large database of expert Go replays, and improved via a reinforcement learning phase. Later work on AlphaZero fully discarded expert knowledge. Ontañón informed node selection using a learned Bayesian model in InformedMCTS. Yang and Ontañón \cite{yang_extracting_2019} later demonstrated the effectiveness of the C4.5 classifier for such tasks, due to its speed and accuracy.
+Machine learning can be used to guide node selection by learning a tree policy from expert traces. AlphaGo \cite{silver_mastering_2016} employed a CNN-based policy network, trained from a large database of expert Go replays, and improved via a reinforcement learning phase. Later work on AlphaZero \cite{silver_general_2018} fully discarded expert knowledge. Ontañón informed node selection using a learned Bayesian model in InformedMCTS \cite{ontanon_informed_2016}. Yang and Ontañón \cite{yang_extracting_2019} later demonstrated the effectiveness of the C4.5 classifier for such tasks, due to its speed and accuracy.
 
 %\subsection{Move Pruning}
 
@@ -267,7 +267,7 @@ The radical pruning approach would be to remove all IPAs from the search space, 
 \end{center}
 \end{figure*}
 
-Detecting trapped units is a straightforward process. But dealing with tactical waiting can be elusive since there is no simple way to differentiate between waiting as a tactical choice, and waiting as a bad decision until witnessing the consequences. Random playouts do not offer an accurate answer about the quality of the decision. We propose four pruning approaches that capture IPAs and decide whether to allow or prune them according to a given parameter. These approaches preserve all IPAs involving trapped units and allow a predetermined number of random IPAs in hopes of preserving tactical waiting situations. The remaining IPAs are all considered disadvantageous and are systematically hard-pruned. We do not re-insert pruned IPAs because we consider the preserved player-actions more interesting to explore. We describe our pruning approaches as follows:
+Detecting trapped units is a simple task. But dealing with tactical waiting can be elusive since there is no simple way to differentiate between waiting as a tactical choice, and waiting as a bad decision until witnessing the consequences. Random playouts do not offer a reliable answer in that regard. We propose four pruning approaches that capture IPAs and decide whether to allow or prune them according to a given parameter. These approaches preserve all IPAs involving trapped units and allow a predetermined number of random IPAs in hopes of preserving tactical waiting situations. The remaining IPAs are all considered disadvantageous and are systematically hard-pruned. We do not re-insert pruned IPAs because we consider the preserved player-actions more interesting to explore. We describe our pruning approaches as follows:
 
 \begin{itemize}
 \item \textbf{Random Inactivity Pruning - Fixed (RIP-F($k$)):} Allow a fixed number, $k$, of IPAs.
@@ -278,7 +278,7 @@ Detecting trapped units is a straightforward process. But dealing with tactical 
 
 The intuition behind dynamic approaches is to equalize the chances of performing tactical waiting when the agent does not hold a numerical advantage. This is done by allowing more IPAs when the agent is outnumbered ($k_2 > k_1$ or, $p_2 > p_1$).
 
-These approaches can be easily implemented as part of any search algorithm, as shown in Algorithm 1. \textsc{isIPA($a$)} returns true if at least one Wait unit-action exists in $a$, and \textsc{TrappedUnit($a$)} returns true if $a$ includes a Wait unit-action involving a trapped unit. \textsc{CheckParam()} returns true if a parameter-check decides to disallow (prune) the player-action.
+These approaches can be easily implemented as part of any search algorithm, as shown in Algorithm 1. \textsc{isIPA($a$)} returns true if at least one Wait unit-action exists in $a$, and \textsc{TrappedUnit($a$)} returns true if $a$ includes a Wait unit-action involving a trapped unit. \textsc{CheckParam()} returns true if a parameter-check decides to disallow (prune) the player-action. The approaches differ in \textsc{CheckParam()} implementation.
 
 %They operate by capturing player-actions while sampling and checking whether an IPA was captured or not. In case the IPA does not involve a trapped unit, a parameter check decides whether to prune the IPA or allow it. If pruned, the search algorithm must sample another action while keeping track of the pruned IPAs. 
 
